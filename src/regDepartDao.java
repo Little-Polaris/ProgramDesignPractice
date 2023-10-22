@@ -48,13 +48,11 @@ public class regDepartDao {
         pstmt.setString(5,d.getTelNum());
         pstmt.setString(6,d.getEmail());
         //提交数据
-        try {
-            pstmt.executeUpdate();
-        }catch (Exception e){
+        pstmt.executeUpdate();
 
-        }
         //关闭数据库的连接
         dbUtils.close(null, pstmt, conn);
+
     }
 
 

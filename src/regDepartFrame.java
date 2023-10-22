@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 /**
  * Created by xsw on 2017/6/3.
@@ -120,10 +121,28 @@ public class regDepartFrame extends JFrame implements ActionListener {
                 regdepartDao.save(d);//保存数据
                 JOptionPane.showMessageDialog(null, "注册提交成功，等待审核");
                 log.logger.debug(""+con_uname+"注册成功，等待审核");
-                this.dispose();//关闭当前窗口
-            } catch (Exception ec) {
-                JOptionPane.showMessageDialog(null, "保存时出现异常，异常原因为:" + ec.getMessage());
-                ec.printStackTrace();
+                this.dispose();
+            } catch (java.sql.SQLException ec) {
+                int errorCode = ec.getErrorCode();
+                if(errorCode == 1062){
+                    JOptionPane.showMessageDialog(null, "账号重复，请修改后重试");
+                } else if (errorCode == 1406) {
+                    String message = ec.getMessage();
+                    if(message.contains("gender")){
+                        JOptionPane.showMessageDialog(null, "输入的性别有误，请修改后重试");
+                    } else if (message.contains("name")) {
+                        JOptionPane.showMessageDialog(null, "输入的姓名过长，请修改后重试");
+                    } else if (message.contains("password")){
+                        JOptionPane.showMessageDialog(null, "输入的密码过长，请修改后重试");
+                    } else if (message.contains("phone")) {
+                        JOptionPane.showMessageDialog(null, "输入的手机号码，请修改后重试");
+                    } else if (message.contains("email")) {
+                        JOptionPane.showMessageDialog(null, "输入的邮箱过长，请修改后重试");
+                    }
+                }
+                //JOptionPane.showMessageDialog(null, "保存时出现异常，异常原因为:" + ec.getMessage());
+            }catch (Exception ec1){
+                ec1.printStackTrace();
             }
         }
         else {
