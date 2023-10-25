@@ -99,7 +99,7 @@ public class regDepartFrame extends JFrame implements ActionListener {
         if (e.getSource() == okBtn) {
             String con_id = idField.getText();
             String con_uname = unameField.getText();
-            String con_pwd = pwdField.getText();
+            String con_pwd = MD5.MD5(pwdField.getText());
             String con_gender = genderField.getText();
             String con_telNum = telField.getText();
             String con_email = emailField.getText();
