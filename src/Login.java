@@ -8,8 +8,8 @@ public class Login{
     //用户登录处理方法
     public boolean loginCheck(String account ,String password,String role)throws Exception{
         String sql="";
-        if("管理员".equals(role))sql="select * from administrator where id=? and password=?";
-        else if("普通用户".equals(role))sql="select * from user where id=? and password=?";
+        if("管理员".equals(role))sql="select * from administrator where id=? and pwd=?";
+        else if("普通用户".equals(role))sql="select * from user where id=? and pwd=?";
         else sql="select * from T where Tno=?and TPwd?";
         return query(sql,account,password);
     }

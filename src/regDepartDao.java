@@ -35,7 +35,7 @@ public class regDepartDao {
     //
     public void save(regDepart d) throws Exception{
         // 插入数据的SQL语句
-        String sql = "insert into user values(?,?,?,?,?,?)";
+        String sql = "insert into RegObject values(?,?,?,?,?,?)";
         // 获得数据库连接对象
         Connection conn = dbUtils.getConnection();
         // 创建PreparedStatement对象

@@ -106,7 +106,7 @@ public class AdminUI extends JFrame implements ActionListener {
         String columnsName[]={"姓名","学号","联系电话","邮箱","教室","日期","时间","时长","用途"};
         try{
             subdepartDao=new subDepartDao();
-            //调用departBao对象的findAll方法返回教室信息列表
+            //调用departBao对象的findAll方法返回会议室信息列表
             dList = subdepartDao.findAll();
             //将list集合解析为JTable显示的数据模型
             num = dList.size();

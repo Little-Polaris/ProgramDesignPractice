@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class JdbcConnection{
     private static String DRIVERCLASS= "com.mysql.jdbc.Driver";
-    private static String URL="jdbc:mysql://127.0.0.1:3306/programdesign";
+    private static String URL="jdbc:mysql://127.0.0.1:3306/Home";
     private static String USENAMR="root";
     private static String PASSWORD="030519";
     //获取数据库连接对象

@@ -68,6 +68,7 @@ public class LoginUI_Main extends JFrame implements ActionListener{
         if(e.getSource()==enterBtn){
             String account = accountField.getText();
             String password = new String(passwordField.getPassword());
+            password = MD5.MD5(password);
             String role = (String)roleCombox.getSelectedItem();
             if(account==null||"".equals(account.trim())||password==null||"".equals(password.trim())){
                 JOptionPane.showMessageDialog(null,"用户账号或密码不能为空");

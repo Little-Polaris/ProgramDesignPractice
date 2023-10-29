@@ -14,7 +14,7 @@ public class subDepartDao {
     public List<subDepart> findAll() throws Exception{
         //将查询的每一条数据封装为subDepart对象
         List<subDepart>dList=new ArrayList<>();
-        String sql="select user_name, user_id, telNum, email, clr_num,date,time,duration,purpose from confirm_sub";//查询命令
+        String sql="select user_name, user_id, telNum, email, meeting_room_num,date,time,duration,purpose from confirm_sub";//查询命令
         Connection conn =dbUtils.getConnection();//获得数据库连接对象
         PreparedStatement pstmt = conn.prepareStatement(sql);//创建对象
         ResultSet rs = pstmt.executeQuery();
