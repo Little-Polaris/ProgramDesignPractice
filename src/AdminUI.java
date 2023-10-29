@@ -16,8 +16,8 @@ public class AdminUI extends JFrame implements ActionListener {
     private JMenuItem addItem,modifyItem,rwItem,uwItem;
     private JTable table;
     private JButton modifyBtn,refBtn;
-    private JLabel unLbl, idLbl, telLbl,emailLbl,clrLbl,beginLbl,endLbl,durLbl,purLbl;
-    private JTextField unField,idField,telField,emailField,clrField,beginField,endField,durField;
+    private JLabel unLbl, idLbl, telLbl,emailLbl,roomLbl,dateLbl,startLbl,endLbl,purLbl;
+    private JTextField unField,idField,telField,emailField,roomField,dateField,startField,endField;
     private JTextArea purField;
     private JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
     subDepartDao subdepartDao;
@@ -140,19 +140,19 @@ public class AdminUI extends JFrame implements ActionListener {
         idLbl= new JLabel("学号:");
         telLbl = new JLabel("联系方式:");
         emailLbl = new JLabel("邮箱:");
-        clrLbl = new JLabel("教室位置:");
-        beginLbl = new JLabel("借用日期:");
-        endLbl = new JLabel("借用时间:");
-        durLbl = new JLabel("借用时长:");
+        roomLbl = new JLabel("会议室编号:");
+        dateLbl = new JLabel("借用日期:");
+        startLbl = new JLabel("借用时间:");
+        endLbl = new JLabel("结束时间:");
         purLbl = new JLabel("用途:");
         unField = new JTextField(20);
         idField = new JTextField(20);
         telField = new JTextField(20);
         emailField = new JTextField(20);
-        clrField = new JTextField(20);
-        beginField = new JTextField(20);
+        roomField = new JTextField(20);
+        dateField = new JTextField(20);
+        startField = new JTextField(20);
         endField = new JTextField(20);
-        durField = new JTextField(20);
         purField = new JTextArea(100,50);
 
         unLbl.setBounds(630, 50, 90, 20);
@@ -167,17 +167,17 @@ public class AdminUI extends JFrame implements ActionListener {
         emailLbl.setBounds(630, 110, 90, 20); // 40=10+20+10
         emailField.setBounds(700, 110, 140, 20);
 
-        clrLbl.setBounds(630, 170, 90, 20);
-        clrField.setBounds(700, 170, 140, 20);// 90=30+60
+        roomLbl.setBounds(630, 170, 90, 20);
+        roomField.setBounds(700, 170, 140, 20);// 90=30+60
 
-        beginLbl.setBounds(630, 200, 90, 20);
-        beginField.setBounds(700, 200, 140, 20);// 90=30+60
+        dateField.setBounds(630, 200, 90, 20);
+        dateField.setBounds(700, 200, 140, 20);// 90=30+60
 
-        endLbl.setBounds(630, 230, 90, 20);
-        endField.setBounds(700, 230, 140, 20);// 90=30+60
+        startLbl.setBounds(630, 230, 90, 20);
+        startField.setBounds(700, 230, 140, 20);// 90=30+60
 
-        durLbl.setBounds(630, 260, 90, 20);
-        durField.setBounds(700, 260, 140, 20);// 90=30+60
+        endLbl.setBounds(630, 260, 90, 20);
+        endField.setBounds(700, 260, 140, 20);// 90=30+60
 
         purLbl.setBounds(630, 290, 90, 20);
         purField.setBounds(700, 290, 140, 80);// 90=30+60
@@ -190,14 +190,14 @@ public class AdminUI extends JFrame implements ActionListener {
         add(telField);
         add(emailLbl);
         add(emailField);
-        add(clrLbl);
-        add(clrField);
+        add(roomLbl);
+        add(roomField);
+        add(dateLbl);
+        add(dateField);
+        add(startLbl);
+        add(startField);
         add(endLbl);
         add(endField);
-        add(beginLbl);
-        add(beginField);
-        add(durLbl);
-        add(durField);
         add(purLbl);
         add(purField);
 
@@ -209,26 +209,26 @@ public class AdminUI extends JFrame implements ActionListener {
     }
 
     class TableListener extends MouseAdapter {
-        String user_name, user_id, telNum, email, clr_num,date_begin,date_end,duration,purpose;
+        String user_name, user_id, telNum, email, room_num,date,starting,ending,purpose;
         public void mouseClicked(final MouseEvent e) {
             int selRow = table.getSelectedRow();
             user_name = table.getValueAt(selRow, 0).toString().trim();
             user_id = table.getValueAt(selRow, 1).toString().trim();
             telNum = table.getValueAt(selRow, 2).toString().trim();
             email = table.getValueAt(selRow, 3).toString().trim();
-            clr_num = table.getValueAt(selRow, 4).toString().trim();
-            date_begin = table.getValueAt(selRow, 5).toString().trim();
-            date_end = table.getValueAt(selRow, 6).toString().trim();
-            duration = table.getValueAt(selRow, 7).toString().trim();
+            room_num = table.getValueAt(selRow, 4).toString().trim();
+            date = table.getValueAt(selRow, 5).toString().trim();
+            starting = table.getValueAt(selRow, 6).toString().trim();
+            ending = table.getValueAt(selRow, 7).toString().trim();
             purpose = table.getValueAt(selRow, 8).toString().trim();
             unField.setText(user_name);
             idField .setText(user_id);
             telField .setText(telNum);
             emailField .setText(email);
-            clrField .setText(clr_num);
-            beginField .setText(date_begin);
-            endField .setText(date_end);
-            durField .setText(duration);
+            roomField .setText(room_num);
+            dateField .setText(date);
+            startField .setText(starting);
+            endField .setText(ending);
             purField .setText(purpose);
         }
     }
@@ -236,16 +236,16 @@ public class AdminUI extends JFrame implements ActionListener {
     //待办事项按钮的实现
     //审核通过
     public void actionPerformed(ActionEvent e){
-        String user_name, user_id, telNum, email, clr_num,date_begin,date_end,duration,purpose;
+        String user_name, user_id, telNum, email, room_num,date,starting,ending,purpose;
         if (e.getSource() == modifyBtn) {
             user_name = unField.getText();
             user_id = idField.getText();
             telNum = telField.getText();
             email = emailField.getText();
-            clr_num = clrField.getText();
-            date_begin = beginField.getText();
-            date_end = endField.getText();
-            duration = durField.getText();
+            room_num = roomField.getText();
+            date = dateField.getText();
+            starting = startField.getText();
+            ending = endField.getText();
             purpose = purField.getText();
             System.out.println(user_name);
             if (user_id == null || "".equals(user_id.trim())
@@ -253,11 +253,11 @@ public class AdminUI extends JFrame implements ActionListener {
                     || user_name == null || "".equals(user_name.trim())
                     || telNum == null || "".equals(telNum.trim())
                     || email == null || "".equals(email.trim())
-                    || clr_num == null || "".equals(clr_num.trim())
-                    || date_begin == null || "".equals(date_begin.trim())
-                    || date_end == null || "".equals(date_end)
-                    || duration == null || "".equals(duration)
-                    || purpose == null || "".equals(purpose))
+                    || room_num == null || "".equals(room_num.trim())
+                    || date == null || "".equals(date.trim())
+                    || starting == null || "".equals(starting.trim())
+                    || ending == null || "".equals(ending.trim())
+                    || purpose == null || "".equals(purpose.trim()))
             {
                 JOptionPane.showMessageDialog(null, "信息填写不完整，请重新检查！");
                 return;
@@ -265,7 +265,7 @@ public class AdminUI extends JFrame implements ActionListener {
             //调用DepartDao业务逻辑处理类来完成增加的操作
             subDepartDao subdepartDao = new subDepartDao();
             //将用户输入的数据封装成一个Depart对象
-            subDepart d = new subDepart(user_name, user_id, telNum, email, clr_num,date_begin,date_end,duration,purpose);
+            subDepart d = new subDepart(user_name, user_id, telNum, email, room_num,date,starting,ending,purpose);
             try {
                 subdepartDao.con_save(d);//保存数据
                 JOptionPane.showMessageDialog(null, "审核通过！");

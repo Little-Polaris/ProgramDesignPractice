@@ -24,13 +24,13 @@ public class subDepartDao {
             String user_id=rs.getString("user_id");
             String telNum=rs.getString("telNum");
             String email=rs.getString("email");
-            String clr_num=rs.getString("clr_num");
-            String data_begin=rs.getString("date");
-            String data_end=rs.getString("time");
-            String duration=rs.getString("duration");
+            String room_num=rs.getString("room_num");
+            String using_date=rs.getString("using_date");
+            String starting_time=rs.getString("starting_time");
+            String ending_time=rs.getString("ending_time");
             String purpose=rs.getString("purpose");
             //将数据表的记录封装为Depart对象，在把对象存在list集合中
-            subDepart d=new subDepart(user_name, user_id, telNum, email, clr_num,data_begin,data_end,duration,purpose);
+            subDepart d=new subDepart(user_name, user_id, telNum, email, room_num,using_date,starting_time,ending_time,purpose);
             dList.add(d);
         }
         dbUtils.close(rs,pstmt,conn);
