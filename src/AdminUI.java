@@ -103,7 +103,7 @@ public class AdminUI extends JFrame implements ActionListener {
         add(refBtn);
 
         //初始化一个二维数组
-        String columnsName[]={"姓名","学号","联系电话","邮箱","教室","日期","时间","时长","用途"};
+        String columnsName[]={"姓名","学号","联系电话","邮箱","教室","日期","开始时间","结束时间","用途"};
         try{
             subdepartDao=new subDepartDao();
             //调用departBao对象的findAll方法返回会议室信息列表
