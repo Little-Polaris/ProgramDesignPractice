@@ -38,16 +38,16 @@ public class modify_ind_info extends JFrame implements ActionListener
         emailLbl = new JLabel("邮箱:");
         try{
 
-        String sql = "select * from user_info where id='"+account+"'";
+        String sql = "select * from reged_user where id="+account;
         Connection conn =dbUtils.getConnection();//获得数据库连接对象
         PreparedStatement pstmt = conn.prepareStatement(sql);
         ResultSet rs =pstmt.executeQuery();
         rs.next();
-        unameField = new JTextField(rs.getString("uname"),20);
+        unameField = new JTextField(rs.getString("name"),20);
         idField = new JTextField(rs.getString("id"),20);
         pwdField = new JTextField(rs.getString("pwd"),20);
         genderField = new JTextField(rs.getString("gender"),20);
-        telField = new JTextField(rs.getString("telNum"),20);
+        telField = new JTextField(rs.getString("tel"),20);
         emailField = new JTextField(rs.getString("email"),20);
         } catch(Exception e){
 

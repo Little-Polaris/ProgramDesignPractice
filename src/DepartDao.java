@@ -19,7 +19,7 @@ public class DepartDao {
     public List<Depart>findAll() throws Exception{
         //将查询的每一条数据封装为Depart对象
         List<Depart>dList=new ArrayList<Depart>();
-        String sql="select RName,RNum,RMember_count,RArea,RPic_dir from RoomMessage where flag = 0";//查询命令
+        String sql="select RName,RNum,RMember_count,RArea,RPic_dir from RoomMessage";//查询命令
         Connection conn =dbUtils.getConnection();//获得数据库连接对象
         PreparedStatement pstmt = conn.prepareStatement(sql);//创建对象
         ResultSet rs = pstmt.executeQuery();

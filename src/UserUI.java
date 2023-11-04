@@ -75,6 +75,7 @@ public class UserUI extends JFrame {
             departDao=new DepartDao();
             //调用departBao对象的findAll方法返回教室信息列表
             dList = departDao.findAll();
+
             //将list集合解析为JTable显示的数据模型
             num = dList.size();
             data=new Object[num][5];
