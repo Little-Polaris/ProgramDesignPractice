@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AdminUI extends JFrame implements ActionListener {
     private JMenuBar menuBar;
-    //菜单：教室信息管理、用户信息管理、待办事项、系统管理
+    //菜单：会议室信息管理、用户信息管理、待办事项、系统管理
     private JMenu classroomMenu,userMenu,waitMenu,exitMenu;
     //菜单项：添加信息、删除信息、修改信息
     private JMenuItem addItem,modifyItem,rwItem,uwItem;
@@ -27,22 +27,22 @@ public class AdminUI extends JFrame implements ActionListener {
     AdminUI.TableListener a;
 
     public AdminUI(String account){
-        setTitle("教室预约系统"+"当前管理员为："+account);//设置窗体标题
+        setTitle("会议室预约系统"+"当前管理员为："+account);//设置窗体标题
         setSize(900,450);
         WindowUtils.displayOnDesktopCenter(this);//窗体居中的方法
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//正常关闭窗体
         //creatMenu();//添加菜单
         menuBar = new JMenuBar();//创建菜单栏
-        //教室信息管理菜单及菜单项的创建
-        classroomMenu = new JMenu("教室信息管理");
-        addItem = new JMenuItem("添加教室");
+        //会议室信息管理菜单及菜单项的创建
+        classroomMenu = new JMenu("会议室信息管理");
+        addItem = new JMenuItem("添加会议室");
         addItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new AddDepartFrame();
             }
         });
-        //delItem = new JMenuItem("删除教室");
+        //delItem = new JMenuItem("删除会议室");
         modifyItem = new JMenuItem("修改信息");
         modifyItem.addActionListener(new ActionListener() {
             @Override
@@ -103,7 +103,7 @@ public class AdminUI extends JFrame implements ActionListener {
         add(refBtn);
 
         //初始化一个二维数组
-        String columnsName[]={"姓名","学号","联系电话","邮箱","教室","日期","时间","时长","用途"};
+        String columnsName[]={"姓名","学号","联系电话","邮箱","会议室","日期","时间","时长","用途"};
         try{
             subdepartDao=new subDepartDao();
             //调用departBao对象的findAll方法返回会议室信息列表
@@ -170,7 +170,7 @@ public class AdminUI extends JFrame implements ActionListener {
         roomLbl.setBounds(630, 170, 90, 20);
         roomField.setBounds(700, 170, 140, 20);// 90=30+60
 
-        dateField.setBounds(630, 200, 90, 20);
+        dateLbl.setBounds(630, 200, 90, 20);
         dateField.setBounds(700, 200, 140, 20);// 90=30+60
 
         startLbl.setBounds(630, 230, 90, 20);

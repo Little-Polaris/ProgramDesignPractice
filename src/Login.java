@@ -9,7 +9,7 @@ public class Login{
     public boolean loginCheck(String account ,String password,String role)throws Exception{
         String sql="";
         if("管理员".equals(role))sql="select * from administrator where id=? and pwd=?";
-        else if("普通用户".equals(role))sql="select * from user where id=? and pwd=?";
+        else if("普通用户".equals(role))sql="select * from reged_user where id=? and pwd=?";
         else sql="select * from T where Tno=?and TPwd?";
         return query(sql,account,password);
     }
