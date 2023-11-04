@@ -110,18 +110,19 @@ public class AdminUI extends JFrame implements ActionListener {
             dList = subdepartDao.findAll();
             //将list集合解析为JTable显示的数据模型
             num = dList.size();
-            data=new Object[num][9];
+            data=new Object[num][10];
             int index=0;
             for(subDepart subdepart:dList){
                 data[index][0]=subdepart.getUser_name();
                 data[index][1]=subdepart.getUser_id();
                 data[index][2]=subdepart.getTelNum();
                 data[index][3]=subdepart.getEmail();
-                data[index][4]=subdepart.getClr_num();
-                data[index][5]=subdepart.getDate_begin();
-                data[index][6]=subdepart.getDate_end();
-                data[index][7]=subdepart.getDuration();
-                data[index][8]=subdepart.getPurpose();
+                data[index][4]=subdepart.getRNum();
+                data[index][5]=subdepart.getusing_date();
+                data[index][6]=subdepart.getstarting_time();
+                data[index][7]=subdepart.getending_time();
+                data[index][8]=subdepart.getRUsage();
+                data[index][9]=subdepart.getflag();
                 index++;
             }
             table.setModel(new DefaultTableModel(data,columnsName));
@@ -209,7 +210,7 @@ public class AdminUI extends JFrame implements ActionListener {
     }
 
     class TableListener extends MouseAdapter {
-        String user_name, user_id, telNum, email, room_num,date,starting,ending,purpose;
+        String user_name, user_id, telNum, email, room_num,date,starting,ending,RUsage;
         public void mouseClicked(final MouseEvent e) {
             int selRow = table.getSelectedRow();
             user_name = table.getValueAt(selRow, 0).toString().trim();
@@ -220,7 +221,7 @@ public class AdminUI extends JFrame implements ActionListener {
             date = table.getValueAt(selRow, 5).toString().trim();
             starting = table.getValueAt(selRow, 6).toString().trim();
             ending = table.getValueAt(selRow, 7).toString().trim();
-            purpose = table.getValueAt(selRow, 8).toString().trim();
+            RUsage = table.getValueAt(selRow, 8).toString().trim();
             unField.setText(user_name);
             idField .setText(user_id);
             telField .setText(telNum);
@@ -229,14 +230,14 @@ public class AdminUI extends JFrame implements ActionListener {
             dateField .setText(date);
             startField .setText(starting);
             endField .setText(ending);
-            purField .setText(purpose);
+            purField .setText(RUsage);
         }
     }
     //添加数据
     //待办事项按钮的实现
     //审核通过
     public void actionPerformed(ActionEvent e){
-        String user_name, user_id, telNum, email, room_num,date,starting,ending,purpose;
+        String user_name, user_id, telNum, email, room_num,date,starting,ending,RUsage;
         if (e.getSource() == modifyBtn) {
             user_name = unField.getText();
             user_id = idField.getText();
@@ -246,7 +247,8 @@ public class AdminUI extends JFrame implements ActionListener {
             date = dateField.getText();
             starting = startField.getText();
             ending = endField.getText();
-            purpose = purField.getText();
+            RUsage = purField.getText();
+            
             System.out.println(user_name);
             if (user_id == null || "".equals(user_id.trim())
                     || user_id == null || "".equals(user_id.trim())
@@ -257,7 +259,7 @@ public class AdminUI extends JFrame implements ActionListener {
                     || date == null || "".equals(date.trim())
                     || starting == null || "".equals(starting.trim())
                     || ending == null || "".equals(ending.trim())
-                    || purpose == null || "".equals(purpose.trim()))
+                    || RUsage == null || "".equals(RUsage.trim()))
             {
                 JOptionPane.showMessageDialog(null, "信息填写不完整，请重新检查！");
                 return;
@@ -265,7 +267,7 @@ public class AdminUI extends JFrame implements ActionListener {
             //调用DepartDao业务逻辑处理类来完成增加的操作
             subDepartDao subdepartDao = new subDepartDao();
             //将用户输入的数据封装成一个Depart对象
-            subDepart d = new subDepart(user_name, user_id, telNum, email, room_num,date,starting,ending,purpose);
+            subDepart d = new subDepart(user_name, user_id, telNum, email, room_num,date,starting,ending,RUsage);
             try {
                 subdepartDao.con_save(d);//保存数据
                 JOptionPane.showMessageDialog(null, "审核通过！");

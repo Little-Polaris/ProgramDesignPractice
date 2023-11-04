@@ -6,43 +6,45 @@
  */
 //教室信息实体类
 
-    //user_name, user_id, telNum, email, clr_num,data_begin,data_end,duration,purpose
+    //user_name, user_id, telNum, email, RNum,data_begin,data_end,ending_time,RUsage
 public class subDepart {
     private String user_name;
     private String  user_id;
     private String telNum;
     private String email;
-    private String clr_num;
-    private String  date_begin;
-   // private Object date_end1=(String);
-    //private Object duration;
-    private String purpose;
-    private String date_end;
-    private String duration;
+    private String RNum;
+    private String  using_date;
+   // private Object starting_time1=(String);
+    //private Object ending_time;
+    private String RUsage;
+    private String starting_time;
+    private String ending_time;
+    private String flag;
     //构造方法
     public subDepart (){}
-    public subDepart(String user_name,String user_id,String telNum, String email, String clr_num,String date_begin,String date_end,String duration,String purpose){
+    public subDepart(String user_name,String user_id,String telNum, String email, String RNum,String using_date,String starting_time,String ending_time,String RUsage,String flag){
         this.user_name=user_name;
         this.user_id =user_id;
         this.telNum=telNum;
         this.email=email;
-        this.clr_num=clr_num;
-        this.date_begin =date_begin;
-        this.date_end=date_end;
-        this.duration=duration;
-        this.purpose=purpose;
+        this.RNum=RNum;
+        this.using_date =using_date;
+        this.starting_time=starting_time;
+        this.ending_time=ending_time;
+        this.RUsage=RUsage;
+        this.flag=flag;
     }
-   /* public subDepart (String user_name, String user_id, String telNum, String email, String clr_num,String date_begin,String date_end1,String duration1,String purpose){
+    public subDepart (String user_name, String user_id, String telNum, String email, String RNum,String using_date,String starting_time1,String ending_time1,String RUsage){
         this.user_name=user_name;
         this.user_id =user_id;
         this.telNum=telNum;
         this.email=email;
-        this.clr_num=clr_num;
-        this.date_begin =date_begin;
-        this.date_end=date_end;
-        this.duration=duration;
-        this.purpose=purpose;
-    }*/
+        this.RNum=RNum;
+        this.using_date =using_date;
+        this.starting_time=starting_time;
+        this.ending_time=ending_time;
+        this.RUsage=RUsage;
+    }
     public String getUser_name() { return user_name; }
     public void setUser_name (String user_name) {
         this.user_name = user_name;
@@ -69,37 +71,42 @@ public class subDepart {
         this.email = email;
     }
 
-    public String getClr_num() {
-        return clr_num;
+    public String getRNum() {
+        return RNum;
     }
-    public void setClr_num(String clr_num) {this.clr_num = clr_num;}
+    public void setRNum(String RNum) {this.RNum = RNum;}
 
-    public String getDate_begin() {
-        return date_begin;
+    public String getusing_date() {
+        return using_date;
     }
-    public void setDate_begin(String date_begin) {
-        this.date_begin = date_begin;
-    }
-
-
-    public String getDate_end() {
-        return date_end;
-    }
-    public void CsetDate_end(String date_end) {
-        this.date_end = date_end;
+    public void setusing_date(String using_date) {
+        this.using_date = using_date;
     }
 
-    public String getDuration() {
-        return duration;
-    }
-    public void CsetDuration(String duration) {this.duration = duration;}
 
-    public String getPurpose() {
-        return purpose;
+    public String getstarting_time() {
+        return starting_time;
     }
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
+    public void Csetstarting_time(String starting_time) {
+        this.starting_time = starting_time;
     }
 
+    public String getending_time() {
+        return ending_time;
+    }
+    public void Csetending_time(String ending_time) {this.ending_time = ending_time;}
+
+    public String getRUsage() {
+        return RUsage;
+    }
+    public void setRUsage(String RUsage) {
+        this.RUsage = RUsage;
+    }
+    public String getflag() {
+        return flag;
+    }
+    public void setflag(String flag) {
+        this.flag = flag;
+    }
 }
 
