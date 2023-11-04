@@ -39,7 +39,7 @@ public class subDepartDao {
     //
     public void save(subDepart d) throws Exception{
         // 插入数据的SQL语句
-        String sql = "insert into confirm_sub(user_name, user_id, telNum, email, clr_num,date,time,duration,RUsage) values(?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into confirm_sub(user_name, user_id, telNum, email, RNum,date,time,ending_time,RUsage) values(?,?,?,?,?,?,?,?,?)";
         // 获得数据库连接对象
         Connection conn = dbUtils.getConnection();
         // 创建PreparedStatement对象
@@ -49,10 +49,10 @@ public class subDepartDao {
         pstmt.setString(2,d.getUser_id());
         pstmt.setString(3,d.getTelNum());
         pstmt.setString(4,d.getEmail());
-        pstmt.setString(5,d.getClr_num());
-        pstmt.setString(6,d.getDate_begin());
-        pstmt.setObject(7,d.getDate_end());
-        pstmt.setObject(8,d.getDuration());
+        pstmt.setString(5,d.getRNum());
+        pstmt.setString(6,d.getusing_date());
+        pstmt.setObject(7,d.getstarting_time());
+        pstmt.setObject(8,d.getending_time());
         pstmt.setString(9,d.getRUsage());
         //提交数据
         pstmt.executeUpdate();
@@ -62,7 +62,7 @@ public class subDepartDao {
 
     public void con_save(subDepart d) throws Exception{
         // 插入数据的SQL语句
-        String sql = "insert into sub_info(user_name, user_id, telNum, email, clr_num,date_begin,date_end,duration,RUsage) values(?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into sub_info(user_name, user_id, telNum, email, RNum,using_date,starting_time,ending_time,RUsage) values(?,?,?,?,?,?,?,?,?)";
         // 获得数据库连接对象
         Connection conn = dbUtils.getConnection();
         // 创建PreparedStatement对象
@@ -72,10 +72,10 @@ public class subDepartDao {
         pstmt.setString(2,d.getUser_id());
         pstmt.setString(3,d.getTelNum());
         pstmt.setString(4,d.getEmail());
-        pstmt.setString(5,d.getClr_num());
-        pstmt.setString(6,d.getDate_begin());
-        pstmt.setString(7,d.getDate_end());
-        pstmt.setString(8,d.getDuration());
+        pstmt.setString(5,d.getRNum());
+        pstmt.setString(6,d.getusing_date());
+        pstmt.setString(7,d.getstarting_time());
+        pstmt.setString(8,d.getending_time());
         pstmt.setString(9,d.getRUsage());
         //提交数据
         pstmt.executeUpdate();
