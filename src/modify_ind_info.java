@@ -9,8 +9,8 @@ import java.sql.*;
  */
 public class modify_ind_info extends JFrame implements ActionListener
 {
-    private JLabel unameLbl, idLbl,pwdLbl,genderLbl, telLbl,emailLbl;
-    private JTextField unameField,idField,pwdField,genderField,telField,emailField;
+    private JLabel nameLbl, idLbl,pwdLbl,genderLbl, telLbl,emailLbl;
+    private JTextField nameField,idField,pwdField,genderField,telField,emailField;
     private JButton okBtn, cancelBtn;
     private JdbcConnection dbUtils=new JdbcConnection();//数据库连接类对象
     private static final long serialVersionUID = 1L;
@@ -30,7 +30,7 @@ public class modify_ind_info extends JFrame implements ActionListener
         setResizable(false);//设置窗体大小不可改变
         //setResizable(false);
 
-        unameLbl = new JLabel("姓名:");
+        nameLbl = new JLabel("姓名:");
         idLbl= new JLabel("学号:");
         genderLbl = new JLabel("性别:");
         pwdLbl = new JLabel("密码:");
@@ -43,7 +43,7 @@ public class modify_ind_info extends JFrame implements ActionListener
         PreparedStatement pstmt = conn.prepareStatement(sql);
         ResultSet rs =pstmt.executeQuery();
         rs.next();
-        unameField = new JTextField(rs.getString("name"),20);
+        nameField = new JTextField(rs.getString("name"),20);
         idField = new JTextField(rs.getString("id"),20);
         pwdField = new JTextField(rs.getString("pwd"),20);
         genderField = new JTextField(rs.getString("gender"),20);
@@ -57,8 +57,8 @@ public class modify_ind_info extends JFrame implements ActionListener
 
         // 窗体位置设置
         setLayout(null);
-        unameLbl.setBounds(60, 10, 90, 20);
-        unameField.setBounds(140, 10, 120, 20);// 90=30+60
+        nameLbl.setBounds(60, 10, 90, 20);
+        nameField.setBounds(140, 10, 120, 20);// 90=30+60
 
         idLbl.setBounds(60, 40, 90, 20); // 40=10+20+10
         idField.setBounds(140, 40, 120, 20);
@@ -78,8 +78,8 @@ public class modify_ind_info extends JFrame implements ActionListener
         okBtn.setBounds(60, 200, 80, 20);
         cancelBtn.setBounds(180, 200, 80, 20);
         //将上述桌面添加进来
-        add(unameLbl);
-        add(unameField);
+        add(nameLbl);
+        add(nameField);
         add(idLbl);
         add(idField);
         add(pwdLbl);
@@ -99,7 +99,7 @@ public class modify_ind_info extends JFrame implements ActionListener
         setVisible(true);
 
         //获取信息
-        //unameField.value=
+        //nameField.value=
     }
 
     public static void main(String[] args){
@@ -108,17 +108,17 @@ public class modify_ind_info extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == okBtn) {
             //先获取信息
-            String uname = unameField.getText();
+            String name = nameField.getText();
             String id = idField.getText();
             String pwd = pwdField.getText();
             String gender = genderField.getText();
-            String telNum = telField.getText();
+            String tel = telField.getText();
             String email = emailField.getText();
-            if (uname == null || "".equals(uname.trim())
+            if (name == null || "".equals(name.trim())
                     || id == null || "".equals(id.trim())
                     || pwd == null || "".equals(pwd.trim())
                     || gender == null || "".equals(gender.trim())
-                    || telNum == null || "".equals(telNum.trim())
+                    || tel == null || "".equals(tel.trim())
                     || email == null || "".equals(email))
             {
                 JOptionPane.showMessageDialog(null, "信息填写不完整，请重新检查！");
@@ -128,7 +128,7 @@ public class modify_ind_info extends JFrame implements ActionListener
             adduserDepartDao adduserdepartDao = new adduserDepartDao();
             //String sql="delete from [user_info] where id="+idField.getText()+";";
             //将用户输入的数据封装成一个Depart对象
-            adduserDepart d = new adduserDepart(uname,id,pwd,gender,telNum,email);
+            adduserDepart d = new adduserDepart(name,id,pwd,gender,tel,email);
             try {
                 adduserdepartDao.modify(d);
                 JOptionPane.showMessageDialog(null, "用户信息修改成功！");
