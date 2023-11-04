@@ -42,5 +42,6 @@ create table RoomMessage(
     purpose varchar(50) comment '使用会议厅目的'
 )comment '会议厅信息';
 
+-- 密码均为123456
 insert into administrator values ('张三',123456,'男','-1ef523c6b645a65441a91fa80df077c2',123456,123456);
 insert into reged_user values ('张三',123456,'男','-1ef523c6b645a65441a91fa80df077c2',123456,123456);
