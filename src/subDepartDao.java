@@ -14,7 +14,7 @@ public class subDepartDao {
     public List<subDepart> findAll() throws Exception{
         //将查询的每一条数据封装为subDepart对象
         List<subDepart>dList=new ArrayList<>();
-        String sql="select user_name, user_id, telNum, email, room_num, using_date,starting_time,ending_time,purpose from roommessage";//查询命令
+        String sql="select user_name, user_id, telNum, email, Rnum, using_date,starting_time,ending_time,RUsage from roommessage";//查询命令
         Connection conn =dbUtils.getConnection();//获得数据库连接对象
         PreparedStatement pstmt = conn.prepareStatement(sql);//创建对象
         ResultSet rs = pstmt.executeQuery();
@@ -24,13 +24,13 @@ public class subDepartDao {
             String user_id=rs.getString("user_id");
             String telNum=rs.getString("telNum");
             String email=rs.getString("email");
-            String room_num=rs.getString("room_num");
+            String Rnum=rs.getString("Rnum");
             String using_date=rs.getString("using_date");
             String starting_time=rs.getString("starting_time");
             String ending_time=rs.getString("ending_time");
-            String purpose=rs.getString("purpose");
+            String RUsage=rs.getString("RUsage");
             //将数据表的记录封装为Depart对象，在把对象存在list集合中
-            subDepart d=new subDepart(user_name, user_id, telNum, email, room_num,using_date,starting_time,ending_time,purpose);
+            subDepart d=new subDepart(user_name, user_id, telNum, email, Rnum,using_date,starting_time,ending_time,RUsage);
             dList.add(d);
         }
         dbUtils.close(rs,pstmt,conn);
@@ -39,7 +39,7 @@ public class subDepartDao {
     //
     public void save(subDepart d) throws Exception{
         // 插入数据的SQL语句
-        String sql = "insert into confirm_sub(user_name, user_id, telNum, email, clr_num,date,time,duration,purpose) values(?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into confirm_sub(user_name, user_id, telNum, email, clr_num,date,time,duration,RUsage) values(?,?,?,?,?,?,?,?,?)";
         // 获得数据库连接对象
         Connection conn = dbUtils.getConnection();
         // 创建PreparedStatement对象
@@ -53,7 +53,7 @@ public class subDepartDao {
         pstmt.setString(6,d.getDate_begin());
         pstmt.setObject(7,d.getDate_end());
         pstmt.setObject(8,d.getDuration());
-        pstmt.setString(9,d.getPurpose());
+        pstmt.setString(9,d.getRUsage());
         //提交数据
         pstmt.executeUpdate();
         //关闭数据库的连接
@@ -62,7 +62,7 @@ public class subDepartDao {
 
     public void con_save(subDepart d) throws Exception{
         // 插入数据的SQL语句
-        String sql = "insert into sub_info(user_name, user_id, telNum, email, clr_num,date_begin,date_end,duration,purpose) values(?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into sub_info(user_name, user_id, telNum, email, clr_num,date_begin,date_end,duration,RUsage) values(?,?,?,?,?,?,?,?,?)";
         // 获得数据库连接对象
         Connection conn = dbUtils.getConnection();
         // 创建PreparedStatement对象
@@ -76,7 +76,7 @@ public class subDepartDao {
         pstmt.setString(6,d.getDate_begin());
         pstmt.setString(7,d.getDate_end());
         pstmt.setString(8,d.getDuration());
-        pstmt.setString(9,d.getPurpose());
+        pstmt.setString(9,d.getRUsage());
         //提交数据
         pstmt.executeUpdate();
         //关闭数据库的连接
