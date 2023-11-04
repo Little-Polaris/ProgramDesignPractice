@@ -4,63 +4,63 @@
 //教室信息实体类
 
 public class Depart {
-    private String clr_id;
-    private String  academy;
-    private String place;
-    private String equipment;
-    private String peoNum;
+    private String RName;
+    private String RNum;
+    private String RMember_count;
+    private String RArea;
+    private String RPic_dir;
     //private String use_time;
 
     //构造方法
     public Depart (){}
-    public Depart(String academy,String place,String equipment,String peoNum){
-        this.academy=academy;
-        this.place=place;
-        this.equipment=equipment;
-        this.peoNum=peoNum;
+    public Depart(String RNum,String RMember_count,String RArea,String RPic_dir){
+        this.RNum=RNum;
+        this.RMember_count=RMember_count;
+        this.RArea=RArea;
+        this.RPic_dir=RPic_dir;
         //this.use_time=use_time;
     }
-    public Depart (String clr_id,String academy,String place,String equipment,String peoNum){
-        this.clr_id=clr_id;
-        this.academy=academy;
-        this.place=place;
-        this.equipment=equipment;
-        this.peoNum=peoNum;
+    public Depart (String RName,String RNum,String RMember_count,String RArea,String RPic_dir){
+        this.RName=RName;
+        this.RNum=RNum;
+        this.RMember_count=RMember_count;
+        this.RArea=RArea;
+        this.RPic_dir=RPic_dir;
         //this.use_time=use_time;
     }
-    public String getClr_id() {
-        return clr_id;
+    public String getRName() {
+        return RName;
     }
-    public void setClr_id (String clr_id) {
-        this.clr_id = clr_id;
-    }
-
-    public String getAcademy() {
-        return academy;
-    }
-    public void setAcademy(String academy) {
-        this.academy = academy;
+    public void setRName (String RName) {
+        this.RName = RName;
     }
 
-    public String getPlace() {
-        return place;
+    public String getRNum() {
+        return RNum;
     }
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
-    public String getEquipment() {
-        return equipment;
-    }
-    public void setEquipment(String equipment) {
-        this.equipment = equipment;
+    public void setRNum(String RNum) {
+        this.RNum = RNum;
     }
 
-    public String getPeoNum() {
-        return peoNum;
+    public String getRMember_count() {
+        return RMember_count;
     }
-    public void setPeoNum(String peoNum) {
-        this.peoNum = peoNum;
+    public void setRMember_count(String RMember_count) {
+        this.RMember_count = RMember_count;
+    }
+
+    public String getRArea() {
+        return RArea;
+    }
+    public void setRArea(String RArea) {
+        this.RArea = RArea;
+    }
+
+    public String getRPic_dir() {
+        return RPic_dir;
+    }
+    public void setRPic_dir(String RPic_dir) {
+        this.RPic_dir = RPic_dir;
     }
 
     /*public String getUse_time(){return use_time;}

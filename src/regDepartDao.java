@@ -13,20 +13,20 @@ public class regDepartDao {
     public List<regDepart> findAll() throws Exception{
         //将查询的每一条数据封装为subDepart对象
         List<regDepart>dList=new ArrayList<>();
-        String sql="select con_uname, con_id, con_pwd, con_gender, con_telNum,con_email from confirm_reg";//查询命令
+        String sql="select name, id, pwd, gender, tel,email from Reged_user";//查询命令
         Connection conn =dbUtils.getConnection();//获得数据库连接对象
         PreparedStatement pstmt = conn.prepareStatement(sql);//创建对象
         ResultSet rs = pstmt.executeQuery();
         //将查询返回多条记录，对查询结果的每一行进行解析
         while(rs.next()){
-            String con_uname=rs.getString("con_uname");
-            String con_id=rs.getString("con_id");
-            String con_pwd=rs.getString("con_pwd");
-            String con_gender=rs.getString("con_gender");
-            String con_telNum=rs.getString("con_telNum");
-            String con_email=rs.getString("con_email");
+            String name=rs.getString("name");
+            String id=rs.getString("id");
+            String pwd=rs.getString("pwd");
+            String gender=rs.getString("gender");
+            String tel=rs.getString("tel");
+            String email=rs.getString("email");
             //将数据表的记录封装为Depart对象，在把对象存在list集合中
-            regDepart d=new regDepart(con_uname, con_id, con_pwd,con_gender,con_telNum, con_email);
+            regDepart d=new regDepart(name, id, pwd,gender,tel, email);
             dList.add(d);
         }
         dbUtils.close(rs,pstmt,conn);

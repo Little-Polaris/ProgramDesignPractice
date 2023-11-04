@@ -11,21 +11,21 @@ public class regDepart {
 
     //构造方法
     public regDepart (){}
-    public regDepart(String con_uname,  String con_pwd, String con_gender, String con_telNum,String con_email){
-        this.con_uname=con_uname;
-        this.con_pwd =con_pwd;
-        this.con_gender=con_gender;
-        this.con_telNum=con_telNum;
-        this.con_email=con_email;
+    public regDepart(String name,  String pwd, String gender, String tel,String email){
+        this.con_uname=name;
+        this.con_pwd =pwd;
+        this.con_gender=gender;
+        this.con_telNum=tel;
+        this.con_email=email;
 
     }
-    public regDepart (String con_id,String con_uname,  String con_pwd, String con_gender, String con_telNum,String con_email){
-        this.con_id=con_id;
-        this.con_uname =con_uname;
-        this.con_pwd =con_pwd;
-        this.con_gender=con_gender;
-        this.con_telNum=con_telNum;
-        this.con_email=con_email;
+    public regDepart (String id,String name,  String pwd, String gender, String tel,String email){
+        this.con_id=id;
+        this.con_uname =name;
+        this.con_pwd =pwd;
+        this.con_gender=gender;
+        this.con_telNum=tel;
+        this.con_email=email;
 
     }
     public String getId() { return con_id; }

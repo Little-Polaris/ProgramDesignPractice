@@ -98,6 +98,7 @@ public class adduserDepartFrame extends JFrame implements ActionListener {
             String uname = unameField.getText();
             String id = idField.getText();
             String pwd = pwdField.getText();
+            pwd=MD5.MD5(pwd);
             String gender = genderField.getText();
             String telNum = telField.getText();
             String email = emailField.getText();

@@ -10,7 +10,7 @@ public class JdbcConnection{
     private static String DRIVERCLASS= "com.mysql.jdbc.Driver";
     private static String URL="jdbc:mysql://127.0.0.1:3306/Home";
     private static String USENAMR="root";
-    private static String PASSWORD="030519";
+    private static String PASSWORD="1234";
     //获取数据库连接对象
     public Connection getConnection() throws ClassNotFoundException,SQLException{
         Class.forName(DRIVERCLASS);//加载驱动程序

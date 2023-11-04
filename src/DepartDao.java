@@ -19,20 +19,20 @@ public class DepartDao {
     public List<Depart>findAll() throws Exception{
         //将查询的每一条数据封装为Depart对象
         List<Depart>dList=new ArrayList<Depart>();
-        String sql="select clr_id,academy,place,equipment,peoNum from clr_info";//查询命令
+        String sql="select RName,RNum,RMember_count,RArea,RPic_dir from RoomMessage where flag = 0";//查询命令
         Connection conn =dbUtils.getConnection();//获得数据库连接对象
         PreparedStatement pstmt = conn.prepareStatement(sql);//创建对象
         ResultSet rs = pstmt.executeQuery();
         //将查询返回多条记录，对查询结果的每一行进行解析
         while(rs.next()){
-            String clr_id=rs.getString("clr_id");
-            String academy=rs.getString("academy");
-            String place=rs.getString("place");
-            String equipment=rs.getString("equipment");
-            String peoNum=rs.getString("peoNum");
+            String RName=rs.getString("RName");
+            String RNum=rs.getString("RNum");
+            String RMember_count=rs.getString("RMember_count");
+            String RArea=rs.getString("RArea");
+            String RPic_dir=rs.getString("RPic_dir");
             //String use_time=rs.getString("use_time");
             //将数据表的记录封装为Depart对象，在把对象存在list集合中
-            Depart d=new Depart(clr_id,academy,place,equipment,peoNum);
+            Depart d=new Depart(RName,RNum,RMember_count,RArea,RPic_dir);
             dList.add(d);
         }
         dbUtils.close(rs,pstmt,conn);
@@ -41,17 +41,17 @@ public class DepartDao {
     //
    public void save(Depart d) throws Exception{
         // 插入数据的SQL语句
-        String sql = "insert into clr_info(clr_id,academy,place,equipment,peoNum) values(?,?,?,?,?)";
+        String sql = "insert into clr_info(RName,RNum,RMember_count,RArea,RPic_dir) values(?,?,?,?,?)";
         // 获得数据库连接对象
         Connection conn = dbUtils.getConnection();
         // 创建PreparedStatement对象
         PreparedStatement pstmt = conn.prepareStatement(sql);
         //为动态参数赋值
-        pstmt.setString(1,d.getClr_id());
-        pstmt.setString(2,d.getAcademy());
-        pstmt.setString(3,d.getPlace());
-        pstmt.setString(4,d.getEquipment());
-        pstmt.setString(5,d.getPeoNum());
+        pstmt.setString(1,d.getRName());
+        pstmt.setString(2,d.getRNum());
+        pstmt.setString(3,d.getRMember_count());
+        pstmt.setString(4,d.getRArea());
+        pstmt.setString(5,d.getRPic_dir());
         //pstmt.setString(6,d.getUse_time());
         //提交数据
         pstmt.executeUpdate();
@@ -67,11 +67,11 @@ public class DepartDao {
         // 创建PreparedStatement对象
         PreparedStatement pstmt = conn.prepareStatement(sql);
         //为动态参数赋值
-        pstmt.setString(1,d.getClr_id());
-        pstmt.setString(2,d.getAcademy());
-        pstmt.setString(3,d.getPlace());
-        pstmt.setString(4,d.getEquipment());
-        pstmt.setString(5,d.getPeoNum());
+        pstmt.setString(1,d.getRName());
+        pstmt.setString(2,d.getRNum());
+        pstmt.setString(3,d.getRMember_count());
+        pstmt.setString(4,d.getRArea());
+        pstmt.setString(5,d.getRPic_dir());
         //pstmt.setString(6,d.getUse_time());
         //提交数据
         pstmt.executeUpdate();
@@ -79,7 +79,7 @@ public class DepartDao {
         dbUtils.close(null, pstmt, conn);
     }*/
     public void modify(Depart d) throws  Exception{
-        String sql = "update clr_info set academy='"+d.getAcademy()+"',place='"+d.getPlace()+"',equipment='"+d.getEquipment()+"',peoNum='"+d.getPeoNum()+"' where clr_id='"+d.getClr_id()+"'";
+        String sql = "update clr_info set RNum='"+d.getRNum()+"',RMember_count='"+d.getRMember_count()+"',RArea='"+d.getRArea()+"',RPic_dir='"+d.getRPic_dir()+"' where RName='"+d.getRName()+"'";
         System.out.println(sql);
         Connection conn = dbUtils.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -87,7 +87,7 @@ public class DepartDao {
         dbUtils.close(null,pstmt,conn);
     }
     public void delete(Depart d)throws Exception{
-        String sql = "delete from clr_info where clr_id='"+d.getClr_id()+"'";
+        String sql = "delete from clr_info where RName='"+d.getRName()+"'";
         System.out.println(sql);
         Connection conn = dbUtils.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -96,7 +96,7 @@ public class DepartDao {
     }
 
     public void query(Depart d) throws Exception{
-        String sql="select from clr_info where academy='"+d.getAcademy()+"' and place='"+d.getPlace()+"' and equipment='"+d.getEquipment()+"'and peoNum='"+d.getPeoNum()+"' and clr_id='"+d.getClr_id()+"'";
+        String sql="select from clr_info where RNum='"+d.getRNum()+"' and RMember_count='"+d.getRMember_count()+"' and RArea='"+d.getRArea()+"'and RPic_dir='"+d.getRPic_dir()+"' and RName='"+d.getRName()+"'";
         System.out.println(sql);
         Connection conn = dbUtils.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql);

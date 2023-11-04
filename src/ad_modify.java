@@ -56,11 +56,11 @@ public class ad_modify extends JFrame implements ActionListener{
             data=new Object[num][5];
             int index=0;
             for(Depart depart:dList){
-                data[index][0]=depart.getClr_id();
-                data[index][1]=depart.getAcademy();
-                data[index][2]=depart.getPlace();
-                data[index][3]=depart.getEquipment();
-                data[index][4]=depart.getPeoNum();
+                data[index][0]=depart.getRName();
+                data[index][1]=depart.getRNum();
+                data[index][2]=depart.getRMember_count();
+                data[index][3]=depart.getRArea();
+                data[index][4]=depart.getRPic_dir();
                 index++;
             }
             table.setModel(new DefaultTableModel(data,columnsName));
