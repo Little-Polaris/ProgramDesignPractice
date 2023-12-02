@@ -2,7 +2,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 import java.util.List;
 
 //import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
@@ -15,8 +14,8 @@ public class ad_modify extends JFrame implements ActionListener{
     private JButton modifyBtn, delBtn;
     private JTable table;
     private JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
-    private JLabel clr_idLbl, academyLbl, placeLbl,equipmentLbl,peoNumLbl;
-    private JTextField clr_idField,academyField,placeField,equipmentField,peoNumField;
+    private JLabel RNameLbl, RNumLbl, RMember_countLbl, RAreaLbl, RUsageLbl, RPic_dirLbl;
+    private JTextField RNameField, RNumField, RMember_countField, RAreaField, RUsageField, RPic_dirField;
     DepartDao departDao;
     List<Depart> dList;
     int num;
@@ -46,13 +45,14 @@ public class ad_modify extends JFrame implements ActionListener{
         add(modifyBtn);
         add(delBtn);
 
-        String[] columnsName={"教室编号","所属学院","位置","设备","可容纳人数"};
+        String[] columnsName={"教室编号","所属学院","位置","设备","可容纳人数", "图片"};
         try{
             departDao=new DepartDao();
             //调用departBao对象的findAll方法返回教室信息列表
             dList = departDao.findAll();
             //将list集合解析为JTable显示的数据模型
             num = dList.size();
+            JButton[] pic_button = new JButton[num];
             data=new Object[num][5];
             int index=0;
             for(Depart depart:dList){
@@ -60,7 +60,17 @@ public class ad_modify extends JFrame implements ActionListener{
                 data[index][1]=depart.getRNum();
                 data[index][2]=depart.getRMember_count();
                 data[index][3]=depart.getRArea();
-                data[index][4]=depart.getRPic_dir();
+                //data[index][4]=depart.getRPic_dir();
+//                pic_button[index] = new JButton("查看图片");
+//                pic_button[index].setBounds(510, 200 + index * 20, 90, 20);
+//                pic_button[index].addActionListener(new ActionListener() {
+//                    @Override
+//                    public void actionPerformed(ActionEvent e) {
+//                        new pic();
+//                    }
+//                });
+//                data[index][4] = pic_button[index];
+
                 index++;
             }
             table.setModel(new DefaultTableModel(data,columnsName));
@@ -80,45 +90,53 @@ public class ad_modify extends JFrame implements ActionListener{
         jScrollPane2.setViewportView(table);
         this.add(jScrollPane2);
 
-        clr_idLbl = new JLabel("教室:");
-        academyLbl= new JLabel("所属学院:");
-        placeLbl = new JLabel("所在位置:");
-        equipmentLbl = new JLabel("已有设备:");
-        peoNumLbl = new JLabel("可容纳人数:");
+        RNameLbl = new JLabel("会议室名称:");
+        RNumLbl = new JLabel("会议室编号:");
+        RMember_countLbl = new JLabel("容量:");
+        RAreaLbl = new JLabel("面积:");
+        RUsageLbl = new JLabel("用途:");
+        RPic_dirLbl = new JLabel("图片:");
 
 
-        clr_idField = new JTextField(20);
-        academyField = new JTextField(20);
-        placeField = new JTextField(20);
-        equipmentField = new JTextField(20);
-        peoNumField = new JTextField(20);
 
-        clr_idLbl.setBounds(510, 50, 90, 20);
-        clr_idField.setBounds(590, 50, 140, 20);// 90=30+60
+        RNameField = new JTextField(20);
+        RNumField = new JTextField(20);
+        RMember_countField = new JTextField(20);
+        RAreaField = new JTextField(20);
+        RUsageField = new JTextField(20);
+        RPic_dirField = new JTextField(20);
 
-        academyLbl.setBounds(510, 80, 90, 20); // 40=10+20+10
-        academyField.setBounds(590, 80, 140, 20);
+        RNameLbl.setBounds(510, 50, 90, 20);
+        RNameField.setBounds(590, 50, 140, 20);// 90=30+60
 
-        placeLbl.setBounds(510, 140, 90, 20);
-        placeField.setBounds(590, 140, 140, 20);// 90=30+60
+        RNumLbl.setBounds(510, 80, 90, 20); // 40=10+20+10
+        RNumField.setBounds(590, 80, 140, 20);
 
-        equipmentLbl.setBounds(510, 110, 90, 20); // 40=10+20+10
-        equipmentField.setBounds(590, 110, 140, 20);
+        RMember_countLbl.setBounds(510, 140, 90, 20);
+        RMember_countField.setBounds(590, 140, 140, 20);// 90=30+60
 
-        peoNumLbl.setBounds(510, 170, 90, 20);
-        peoNumField.setBounds(590, 170, 140, 20);// 90=30+60
+        RAreaLbl.setBounds(510, 110, 90, 20); // 40=10+20+10
+        RAreaField.setBounds(590, 110, 140, 20);
+
+        RUsageLbl.setBounds(510, 170, 90, 20);
+        RUsageField.setBounds(590, 170, 140, 20);// 90=30+60
+
+        RPic_dirLbl.setBounds(510, 200, 90, 20);
+        RPic_dirField.setBounds(590, 200, 140, 20);// 90=30+60
 
         //将上述桌面添加进来
-        add(clr_idLbl);
-        add(clr_idField);
-        add(academyLbl);
-        add(academyField);
-        add(equipmentLbl);
-        add(equipmentField);
-        add(placeLbl);
-        add(placeField);
-        add(peoNumLbl);
-        add(peoNumField);
+        add(RNameLbl);
+        add(RNameField);
+        add(RNumLbl);
+        add(RNumField);
+        add(RAreaLbl);
+        add(RAreaField);
+        add(RMember_countLbl);
+        add(RMember_countField);
+        add(RUsageLbl);
+        add(RUsageField);
+        add(RPic_dirLbl);
+        add(RPic_dirField);
 
         //注册事件监听
         modifyBtn.addActionListener(this);
@@ -129,64 +147,69 @@ public class ad_modify extends JFrame implements ActionListener{
         new ad_modify();
     }
     class TableListener extends MouseAdapter {
-        String clr_id, academy, place, equipment, peoNum;
+        String RName, RNum, RMember_count, RArea, RUsage, RPic_dir;
         public void mouseClicked( MouseEvent e) {
            // String clr_id, academy, place, equipment, peoNum;
             int selRow = table.getSelectedRow();
-            clr_id = table.getValueAt(selRow, 0).toString().trim();
-            academy = table.getValueAt(selRow, 1).toString().trim();
-            place = table.getValueAt(selRow, 2).toString().trim();
-            equipment = table.getValueAt(selRow, 3).toString().trim();
-            peoNum = table.getValueAt(selRow, 4).toString().trim();
-            System.out.println(clr_id);
-            System.out.println(academy);
-            System.out.println(place);
-            System.out.println(equipment);
-            System.out.println(peoNum);
+            RName = table.getValueAt(selRow, 0).toString().trim();
+            RNum = table.getValueAt(selRow, 1).toString().trim();
+            RArea = table.getValueAt(selRow, 2).toString().trim();
+            RMember_count = table.getValueAt(selRow, 3).toString().trim();
+            RUsage = table.getValueAt(selRow, 4).toString().trim();
+            RPic_dir = table.getValueAt(selRow, 5).toString().trim();
+            System.out.println(RName);
+            System.out.println(RNum);
+            System.out.println(RMember_count);
+            System.out.println(RArea);
+            System.out.println(RUsage);
+            System.out.println(RPic_dir);
 
-            clr_idField.setText(clr_id);
-            academyField.setText(academy);
-            placeField.setText(place);
-            equipmentField.setText(equipment);
-            peoNumField.setText(peoNum);
+            RNameField.setText(RName);
+            RNumField.setText(RNum);
+            RMember_countField.setText(RMember_count);
+            RAreaField.setText(RArea);
+            RUsageField.setText(RUsage);
+            RPic_dirField.setText(RPic_dir);
         }
     }
     public void actionPerformed(ActionEvent e) {
         //调用DepartDao业务逻辑处理类来完成增加的操作
         DepartDao departDao=new DepartDao();
         if (e.getSource() == modifyBtn) {
-            String clr_id = clr_idField.getText();
-            String academy = academyField.getText();
-            String place = placeField.getText();
-            String equipment = equipmentField.getText();
-            String peoNum = peoNumField.getText();
-            if (clr_id == null || "".equals(clr_id.trim()) || academy == null || "".equals(academy)) {
+            String RName = RNameField.getText();
+            String RNum = RNumField.getText();
+            String RMember_count = RMember_countField.getText();
+            String RArea = RAreaField.getText();
+            String RUsage = RUsageField.getText();
+            String RPic_dir = RPic_dirField.getText();
+            if (RName == null || "".equals(RName.trim()) || RNum == null || "".equals(RNum)) {
                 JOptionPane.showMessageDialog(null, "教室和所属学院不能为空");
                 return;
             }
             //将用户输入的数据封装成一个Depart对象
-            Depart d = new Depart(clr_id, academy, place, equipment, peoNum);
+            Depart d = new Depart(RName, RNum, RMember_count, RArea, RUsage, RPic_dir);
             try {
                 departDao.modify(d);//修改数据
                 JOptionPane.showMessageDialog(null, "教室信息修改成功");
-                log.logger.debug("管理员修改了"+clr_id+"的信息");
+                log.logger.debug("管理员修改了"+RName+"的信息");
             } catch (Exception ec) {
                 JOptionPane.showMessageDialog(null, "保存时出现异常，异常原因为:" + ec.getMessage());
                 ec.printStackTrace();
             }
         }
         else if(e.getSource() == delBtn){
-            String clr_id = clr_idField.getText();
-            String academy = academyField.getText();
-            String place = placeField.getText();
-            String equipment = equipmentField.getText();
-            String peoNum = peoNumField.getText();
-            if (clr_id == null || "".equals(clr_id.trim()) || academy == null || "".equals(academy)) {
+            String RName = RNameField.getText();
+            String RNum = RNumField.getText();
+            String RMember_count = RMember_countField.getText();
+            String RArea = RAreaField.getText();
+            String RUsage = RUsageField.getText();
+            String RPic_dir = RPic_dirField.getText();
+            if (RName == null || "".equals(RName.trim()) || RNum == null || "".equals(RNum)) {
                 JOptionPane.showMessageDialog(null, "教室和所属学院不能为空");
                 return;
             }
             //将用户输入的数据封装成一个Depart对象
-            Depart d = new Depart(clr_id, academy, place, equipment, peoNum);
+            Depart d = new Depart(RName, RNum, RMember_count, RArea, RUsage, RPic_dir);
             try {
                 departDao.delete(d);//修改数据
                 JOptionPane.showMessageDialog(null, "教室信息添加成功");

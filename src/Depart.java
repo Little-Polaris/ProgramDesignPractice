@@ -8,6 +8,7 @@ public class Depart {
     private String RNum;
     private String RMember_count;
     private String RArea;
+    private String RUasge;
     private String RPic_dir;
     //private String use_time;
 
@@ -20,11 +21,12 @@ public class Depart {
         this.RPic_dir=RPic_dir;
         //this.use_time=use_time;
     }
-    public Depart (String RName,String RNum,String RMember_count,String RArea,String RPic_dir){
+    public Depart (String RName,String RNum,String RMember_count,String RArea,String RUsage, String RPic_dir){
         this.RName=RName;
         this.RNum=RNum;
         this.RMember_count=RMember_count;
         this.RArea=RArea;
+        this.RUasge=RUsage;
         this.RPic_dir=RPic_dir;
         //this.use_time=use_time;
     }
@@ -56,6 +58,12 @@ public class Depart {
         this.RArea = RArea;
     }
 
+    public String getRUsage() {
+        return RUasge;
+    }
+    public void setRUsage(String RUsage) {
+        this.RUasge = RUsage;
+    }
     public String getRPic_dir() {
         return RPic_dir;
     }

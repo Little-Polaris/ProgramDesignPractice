@@ -70,7 +70,7 @@ public class UserUI extends JFrame {
         menuBar.add(individualMenu);
         this.setJMenuBar(menuBar);
 
-        String[] columnsName={"教室编号","所属学院","位置","设备","可容纳人数"};
+        String[] columnsName={"会议室名称","会议室号","容量","面积", "用途","图片"};
         try{
             departDao=new DepartDao();
             //调用departBao对象的findAll方法返回教室信息列表
@@ -78,14 +78,14 @@ public class UserUI extends JFrame {
 
             //将list集合解析为JTable显示的数据模型
             num = dList.size();
-            data=new Object[num][5];
+            data=new Object[num][6];
             int index=0;
             for(Depart depart:dList){
                 data[index][0]=depart.getRName();
                 data[index][1]=depart.getRNum();
                 data[index][2]=depart.getRMember_count();
                 data[index][3]=depart.getRArea();
-                data[index][4]=depart.getRPic_dir();
+                data[index][4]=depart.getRUsage();
                 index++;
             }
             table.setModel(new DefaultTableModel(data,columnsName));

@@ -14,23 +14,28 @@ public class subDepartDao {
     public List<subDepart> findAll() throws Exception{
         //将查询的每一条数据封装为subDepart对象
         List<subDepart>dList=new ArrayList<>();
-        String sql="select user_name, user_id, telNum, email, Rnum, using_date,starting_time,ending_time,RUsage from roommessage";//查询命令
+        String sql="select * from roommessage";//查询命令
         Connection conn =dbUtils.getConnection();//获得数据库连接对象
         PreparedStatement pstmt = conn.prepareStatement(sql);//创建对象
         ResultSet rs = pstmt.executeQuery();
         //将查询返回多条记录，对查询结果的每一行进行解析
         while(rs.next()){
+            String RName=rs.getString("RName");
+            String RNum=rs.getString("RNum");
+            String RMember_count=rs.getString("RMember_count");
+            String RArea=rs.getString("RArea");
+            String RPic_dir=rs.getString("RPic_dir");
+            String RUsage=rs.getString("RUsage");
             String user_name=rs.getString("user_name");
             String user_id=rs.getString("user_id");
             String telNum=rs.getString("telNum");
             String email=rs.getString("email");
-            String Rnum=rs.getString("Rnum");
             String using_date=rs.getString("using_date");
             String starting_time=rs.getString("starting_time");
             String ending_time=rs.getString("ending_time");
-            String RUsage=rs.getString("RUsage");
+            String flag=rs.getString("flag");
             //将数据表的记录封装为Depart对象，在把对象存在list集合中
-            subDepart d=new subDepart(user_name, user_id, telNum, email, Rnum,using_date,starting_time,ending_time,RUsage);
+            subDepart d=new subDepart(RName,RNum,RMember_count,RArea,RPic_dir,RUsage,user_name,user_id,telNum,email,using_date,starting_time,ending_time,flag);
             dList.add(d);
         }
         dbUtils.close(rs,pstmt,conn);

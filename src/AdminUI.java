@@ -103,26 +103,40 @@ public class AdminUI extends JFrame implements ActionListener {
         add(refBtn);
 
         //初始化一个二维数组
-        String columnsName[]={"姓名","学号","联系电话","邮箱","会议室","日期","时间","时长","用途"};
+        //String columnsName[]={"姓名","学号","联系电话","邮箱","会议室","日期","时间","时长","用途"};
+        String columnsName[]={"占用情况","会议室编号","会议室名称","容量","面积", "用途", "图片"};
         try{
             subdepartDao=new subDepartDao();
             //调用departBao对象的findAll方法返回会议室信息列表
             dList = subdepartDao.findAll();
             //将list集合解析为JTable显示的数据模型
             num = dList.size();
-            data=new Object[num][10];
+            data=new Object[num][7];
+            JButton [] pic_button = new JButton[num];
             int index=0;
             for(subDepart subdepart:dList){
-                data[index][0]=subdepart.getUser_name();
-                data[index][1]=subdepart.getUser_id();
-                data[index][2]=subdepart.getTelNum();
-                data[index][3]=subdepart.getEmail();
-                data[index][4]=subdepart.getRNum();
-                data[index][5]=subdepart.getusing_date();
-                data[index][6]=subdepart.getstarting_time();
-                data[index][7]=subdepart.getending_time();
-                data[index][8]=subdepart.getRUsage();
-                data[index][9]=subdepart.getflag();
+                data[index][0]=subdepart.getflag();
+                data[index][1]=subdepart.getRNum();
+                data[index][2]=subdepart.getRName();
+                data[index][3]=subdepart.getRMember_count();
+                data[index][4]=subdepart.getRArea();
+                data[index][5]=subdepart.getRUsage();
+                pic_button[index] = new JButton("查看");
+                pic_button[index].setBounds(540, 72 + index * 15, 70, 15);
+//                pic_button[index].addActionListener(new ActionListener() {
+//                    @Override
+//                    public void actionPerformed(ActionEvent e) {
+//                        new pic();
+//                    }
+//                });
+                //data[index][5] = pic_button[index];
+                add(pic_button[index]);
+
+                //data[index][5]=subdepart.getRPic_dir();
+//                data[index][6]=subdepart.getstarting_time();
+//                data[index][7]=subdepart.getending_time();
+//                data[index][8]=subdepart.getRUsage();
+//                data[index][9]=subdepart.getflag();
                 index++;
             }
             table.setModel(new DefaultTableModel(data,columnsName));
