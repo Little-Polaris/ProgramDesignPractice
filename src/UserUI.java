@@ -70,22 +70,23 @@ public class UserUI extends JFrame {
         menuBar.add(individualMenu);
         this.setJMenuBar(menuBar);
 
-        String[] columnsName={"会议室名称","会议室号","容量","面积", "用途","图片"};
+        String[] columnsName={"占用情况", "会议室名称","会议室编号","容量","面积", "用途","图片"};
         try{
             departDao=new DepartDao();
             //调用departBao对象的findAll方法返回教室信息列表
-            dList = departDao.findAll();
+            dList = departDao.queryAll("room");
 
             //将list集合解析为JTable显示的数据模型
             num = dList.size();
-            data=new Object[num][6];
+            data=new Object[num][7];
             int index=0;
             for(Depart depart:dList){
-                data[index][0]=depart.getRName();
-                data[index][1]=depart.getRNum();
-                data[index][2]=depart.getRMember_count();
-                data[index][3]=depart.getRArea();
-                data[index][4]=depart.getRUsage();
+                data[index][0]=depart.getFlag();
+                data[index][1]=depart.getRName();
+                data[index][2]=depart.getRNum();
+                data[index][3]=depart.getRMemberCount();
+                data[index][4]=depart.getRArea();
+                data[index][5]=depart.getRUsage();
                 index++;
             }
             table.setModel(new DefaultTableModel(data,columnsName));

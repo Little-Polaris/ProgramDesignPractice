@@ -49,28 +49,19 @@ public class ad_modify extends JFrame implements ActionListener{
         try{
             departDao=new DepartDao();
             //调用departBao对象的findAll方法返回教室信息列表
-            dList = departDao.findAll();
+            dList = departDao.queryAll("room");
             //将list集合解析为JTable显示的数据模型
             num = dList.size();
             JButton[] pic_button = new JButton[num];
-            data=new Object[num][5];
+            data=new Object[num][6];
             int index=0;
             for(Depart depart:dList){
                 data[index][0]=depart.getRName();
                 data[index][1]=depart.getRNum();
-                data[index][2]=depart.getRMember_count();
+                data[index][2]=depart.getRMemberCount();
                 data[index][3]=depart.getRArea();
-                //data[index][4]=depart.getRPic_dir();
-//                pic_button[index] = new JButton("查看图片");
-//                pic_button[index].setBounds(510, 200 + index * 20, 90, 20);
-//                pic_button[index].addActionListener(new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//                        new pic();
-//                    }
-//                });
-//                data[index][4] = pic_button[index];
-
+                data[index][4]=depart.getRPicDir();
+                data[index][5]=depart.getRUsage();
                 index++;
             }
             table.setModel(new DefaultTableModel(data,columnsName));
@@ -78,9 +69,6 @@ public class ad_modify extends JFrame implements ActionListener{
             //JOptionPane.showMessageDialog(null,"查询时出现异常。异常原因为："+ec.getMessage());
             ec.printStackTrace();
         }
-        //初始化一个二维数组
-        //String columnsName[]={"教室编号","所属学院","位置","设备","可容纳人数"};
-        //Object[][] data={};
         table = new JTable(data,columnsName);
 
         TableListener a =new TableListener();
@@ -187,9 +175,9 @@ public class ad_modify extends JFrame implements ActionListener{
                 return;
             }
             //将用户输入的数据封装成一个Depart对象
-            Depart d = new Depart(RName, RNum, RMember_count, RArea, RUsage, RPic_dir);
+            Depart d = new Depart("room",RName, RNum, RMember_count, RArea, RUsage, RPic_dir);
             try {
-                departDao.modify(d);//修改数据
+                departDao.modify("room", d);//修改数据
                 JOptionPane.showMessageDialog(null, "教室信息修改成功");
                 log.logger.debug("管理员修改了"+RName+"的信息");
             } catch (Exception ec) {
@@ -209,9 +197,9 @@ public class ad_modify extends JFrame implements ActionListener{
                 return;
             }
             //将用户输入的数据封装成一个Depart对象
-            Depart d = new Depart(RName, RNum, RMember_count, RArea, RUsage, RPic_dir);
+            Depart d = new Depart("room", RName, RNum, RMember_count, RArea, RUsage, RPic_dir);
             try {
-                departDao.delete(d);//修改数据
+                departDao.delete("room", d);//修改数据
                 JOptionPane.showMessageDialog(null, "教室信息添加成功");
             } catch (Exception ec) {
                 JOptionPane.showMessageDialog(null, "保存时出现异常，异常原因为:" + ec.getMessage());

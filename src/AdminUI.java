@@ -16,12 +16,12 @@ public class AdminUI extends JFrame implements ActionListener {
     private JMenuItem addItem,modifyItem,rwItem,uwItem;
     private JTable table;
     private JButton modifyBtn,refBtn;
-    private JLabel unLbl, idLbl, telLbl,emailLbl,roomLbl,dateLbl,startLbl,endLbl,purLbl;
-    private JTextField unField,idField,telField,emailField,roomField,dateField,startField,endField;
-    private JTextArea purField;
+    private JLabel RUserNameLbl, RUserIdLbl, RUserTelLbl, RUserEmailLbl,roomLbl, UsingDateLbl, StartingTimeLbl, EndingTimeLbl,purLbl;
+    private JTextField RUserNameField, RUserIdField, RUserTelField, RUserEmailField,roomField, UsingDateField, StartingTimeField, EndingTimeField;
+    private JTextArea UsageField;
     private JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
-    subDepartDao subdepartDao;
-    List<subDepart> dList;
+    DepartDao departDao;
+    List<Depart> DepartList;
     int num;
     Object[][]data;
     AdminUI.TableListener a;
@@ -102,25 +102,23 @@ public class AdminUI extends JFrame implements ActionListener {
         add(modifyBtn);
         add(refBtn);
 
-        //初始化一个二维数组
-        //String columnsName[]={"姓名","学号","联系电话","邮箱","会议室","日期","时间","时长","用途"};
         String columnsName[]={"占用情况","会议室编号","会议室名称","容量","面积", "用途", "图片"};
         try{
-            subdepartDao=new subDepartDao();
+            departDao =new DepartDao();
             //调用departBao对象的findAll方法返回会议室信息列表
-            dList = subdepartDao.findAll();
+            DepartList = departDao.queryAll("room");
             //将list集合解析为JTable显示的数据模型
-            num = dList.size();
+            num = DepartList.size();
             data=new Object[num][7];
             JButton [] pic_button = new JButton[num];
             int index=0;
-            for(subDepart subdepart:dList){
-                data[index][0]=subdepart.getflag();
-                data[index][1]=subdepart.getRNum();
-                data[index][2]=subdepart.getRName();
-                data[index][3]=subdepart.getRMember_count();
-                data[index][4]=subdepart.getRArea();
-                data[index][5]=subdepart.getRUsage();
+            for(Depart depart: DepartList){
+                data[index][0]=depart.getFlag();
+                data[index][1]=depart.getRNum();
+                data[index][2]=depart.getRName();
+                data[index][3]=depart.getRMemberCount();
+                data[index][4]=depart.getRArea();
+                data[index][5]=depart.getRUsage();
                 pic_button[index] = new JButton("查看");
                 pic_button[index].setBounds(540, 72 + index * 15, 70, 15);
 //                pic_button[index].addActionListener(new ActionListener() {
@@ -151,70 +149,70 @@ public class AdminUI extends JFrame implements ActionListener {
         jScrollPane2.setViewportView(table);
         this.add(jScrollPane2);
 
-        unLbl = new JLabel("姓名:");
-        idLbl= new JLabel("学号:");
-        telLbl = new JLabel("联系方式:");
-        emailLbl = new JLabel("邮箱:");
+        RUserNameLbl = new JLabel("姓名:");
+        RUserIdLbl = new JLabel("账号:");
+        RUserTelLbl = new JLabel("联系方式:");
+        RUserEmailLbl = new JLabel("邮箱:");
         roomLbl = new JLabel("会议室编号:");
-        dateLbl = new JLabel("借用日期:");
-        startLbl = new JLabel("借用时间:");
-        endLbl = new JLabel("结束时间:");
+        UsingDateLbl = new JLabel("借用日期:");
+        StartingTimeLbl = new JLabel("借用时间:");
+        EndingTimeLbl = new JLabel("结束时间:");
         purLbl = new JLabel("用途:");
-        unField = new JTextField(20);
-        idField = new JTextField(20);
-        telField = new JTextField(20);
-        emailField = new JTextField(20);
+        RUserNameField = new JTextField(20);
+        RUserIdField = new JTextField(20);
+        RUserTelField = new JTextField(20);
+        RUserEmailField = new JTextField(20);
         roomField = new JTextField(20);
-        dateField = new JTextField(20);
-        startField = new JTextField(20);
-        endField = new JTextField(20);
-        purField = new JTextArea(100,50);
+        UsingDateField = new JTextField(20);
+        StartingTimeField = new JTextField(20);
+        EndingTimeField = new JTextField(20);
+        UsageField = new JTextArea(100,50);
 
-        unLbl.setBounds(630, 50, 90, 20);
-        unField.setBounds(700, 50, 140, 20);// 90=30+60
+        RUserNameLbl.setBounds(630, 50, 90, 20);
+        RUserNameField.setBounds(700, 50, 140, 20);// 90=30+60
 
-        idLbl.setBounds(630, 80, 90, 20); // 40=10+20+10
-        idField.setBounds(700, 80, 140, 20);
+        RUserIdLbl.setBounds(630, 80, 90, 20); // 40=10+20+10
+        RUserIdField.setBounds(700, 80, 140, 20);
 
-        telLbl.setBounds(630, 140, 90, 20);
-        telField.setBounds(700, 140, 140, 20);// 90=30+60
+        RUserTelLbl.setBounds(630, 140, 90, 20);
+        RUserTelField.setBounds(700, 140, 140, 20);// 90=30+60
 
-        emailLbl.setBounds(630, 110, 90, 20); // 40=10+20+10
-        emailField.setBounds(700, 110, 140, 20);
+        RUserEmailLbl.setBounds(630, 110, 90, 20); // 40=10+20+10
+        RUserEmailField.setBounds(700, 110, 140, 20);
 
         roomLbl.setBounds(630, 170, 90, 20);
         roomField.setBounds(700, 170, 140, 20);// 90=30+60
 
-        dateLbl.setBounds(630, 200, 90, 20);
-        dateField.setBounds(700, 200, 140, 20);// 90=30+60
+        UsingDateLbl.setBounds(630, 200, 90, 20);
+        UsingDateField.setBounds(700, 200, 140, 20);// 90=30+60
 
-        startLbl.setBounds(630, 230, 90, 20);
-        startField.setBounds(700, 230, 140, 20);// 90=30+60
+        StartingTimeLbl.setBounds(630, 230, 90, 20);
+        StartingTimeField.setBounds(700, 230, 140, 20);// 90=30+60
 
-        endLbl.setBounds(630, 260, 90, 20);
-        endField.setBounds(700, 260, 140, 20);// 90=30+60
+        EndingTimeLbl.setBounds(630, 260, 90, 20);
+        EndingTimeField.setBounds(700, 260, 140, 20);// 90=30+60
 
         purLbl.setBounds(630, 290, 90, 20);
-        purField.setBounds(700, 290, 140, 80);// 90=30+60
+        UsageField.setBounds(700, 290, 140, 80);// 90=30+60
         //将上述桌面添加进来
-        add(unLbl);
-        add(unField);
-        add(idLbl);
-        add(idField);
-        add(telLbl);
-        add(telField);
-        add(emailLbl);
-        add(emailField);
+        add(RUserNameLbl);
+        add(RUserNameField);
+        add(RUserIdLbl);
+        add(RUserIdField);
+        add(RUserTelLbl);
+        add(RUserTelField);
+        add(RUserEmailLbl);
+        add(RUserEmailField);
         add(roomLbl);
         add(roomField);
-        add(dateLbl);
-        add(dateField);
-        add(startLbl);
-        add(startField);
-        add(endLbl);
-        add(endField);
+        add(UsingDateLbl);
+        add(UsingDateField);
+        add(StartingTimeLbl);
+        add(StartingTimeField);
+        add(EndingTimeLbl);
+        add(EndingTimeField);
         add(purLbl);
-        add(purField);
+        add(UsageField);
 
         modifyBtn.addActionListener(this);
         setVisible(true);//显示窗体
@@ -224,44 +222,49 @@ public class AdminUI extends JFrame implements ActionListener {
     }
 
     class TableListener extends MouseAdapter {
-        String user_name, user_id, telNum, email, room_num,date,starting,ending,RUsage;
+        String RNum, RUserName, RUserId, RUserTel, RUserEmail , UsingDate, StartingTime, EndingTime, RUserUsage;
         public void mouseClicked(final MouseEvent e) {
             int selRow = table.getSelectedRow();
-            user_name = table.getValueAt(selRow, 0).toString().trim();
-            user_id = table.getValueAt(selRow, 1).toString().trim();
-            telNum = table.getValueAt(selRow, 2).toString().trim();
-            email = table.getValueAt(selRow, 3).toString().trim();
-            room_num = table.getValueAt(selRow, 4).toString().trim();
-            date = table.getValueAt(selRow, 5).toString().trim();
-            starting = table.getValueAt(selRow, 6).toString().trim();
-            ending = table.getValueAt(selRow, 7).toString().trim();
-            RUsage = table.getValueAt(selRow, 8).toString().trim();
-            unField.setText(user_name);
-            idField .setText(user_id);
-            telField .setText(telNum);
-            emailField .setText(email);
-            roomField .setText(room_num);
-            dateField .setText(date);
-            startField .setText(starting);
-            endField .setText(ending);
-            purField .setText(RUsage);
+            RNum = table.getValueAt(selRow, 1).toString().trim();
+            departDao = new DepartDao();
+            try {
+                Depart depart = departDao.query("room", RNum);
+                RUserName = depart.getRUserName();
+                RUserId = depart.getRUserId();
+                RUserTel = depart.getRUserTel();
+                RUserEmail = depart.getRUserEmail();
+                UsingDate = depart.getUsingDate();
+                StartingTime = depart.getStartingTime();
+                EndingTime = depart.getEndingTime();
+                RUserUsage = depart.getRUserUsage();
+                RUserNameField.setText(RUserName);
+                RUserIdField.setText(RUserId);
+                RUserTelField.setText(RUserTel);
+                RUserEmailField.setText(RUserEmail);
+                roomField .setText(RNum);
+                UsingDateField.setText(UsingDate);
+                StartingTimeField.setText(StartingTime);
+                EndingTimeField.setText(EndingTime);
+                UsageField.setText(RUserUsage);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+
         }
     }
-    //添加数据
-    //待办事项按钮的实现
-    //审核通过
+
     public void actionPerformed(ActionEvent e){
         String user_name, user_id, telNum, email, room_num,date,starting,ending,RUsage;
         if (e.getSource() == modifyBtn) {
-            user_name = unField.getText();
-            user_id = idField.getText();
-            telNum = telField.getText();
-            email = emailField.getText();
+            user_name = RUserNameField.getText();
+            user_id = RUserIdField.getText();
+            telNum = RUserTelField.getText();
+            email = RUserEmailField.getText();
             room_num = roomField.getText();
-            date = dateField.getText();
-            starting = startField.getText();
-            ending = endField.getText();
-            RUsage = purField.getText();
+            date = UsingDateField.getText();
+            starting = StartingTimeField.getText();
+            ending = EndingTimeField.getText();
+            RUsage = UsageField.getText();
             
             System.out.println(user_name);
             if (user_id == null || "".equals(user_id.trim())
@@ -280,10 +283,9 @@ public class AdminUI extends JFrame implements ActionListener {
             }
             //调用DepartDao业务逻辑处理类来完成增加的操作
             subDepartDao subdepartDao = new subDepartDao();
-            //将用户输入的数据封装成一个Depart对象
             subDepart d = new subDepart(user_name, user_id, telNum, email, room_num,date,starting,ending,RUsage);
             try {
-                subdepartDao.con_save(d);//保存数据
+                subdepartDao.con_save(d);
                 JOptionPane.showMessageDialog(null, "审核通过！");
                 log.logger.debug("管理员审核了信息");
             } catch (Exception ec) {
@@ -292,10 +294,8 @@ public class AdminUI extends JFrame implements ActionListener {
             }
         }
         else {
-            this.dispose();//关闭当前窗口
+            this.dispose();
         }
     }
-    //用户注册
-
 }
 

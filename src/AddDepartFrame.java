@@ -108,9 +108,9 @@ public class AddDepartFrame extends JFrame implements ActionListener {
             //调用DepartDao业务逻辑处理类来完成增加的操作
             DepartDao departDao = new DepartDao();
             //将用户输入的数据封装成一个Depart对象
-            Depart d = new Depart(RName, RNum, RMember_count, RArea, RUsage, RPic_dir);
+            Depart d = new Depart("room", RName, RNum, RMember_count, RArea, RUsage, RPic_dir);
             try {
-                departDao.save(d);//保存数据
+                departDao.save("room", d);//保存数据
                 JOptionPane.showMessageDialog(null, "教室信息添加成功");
                 log.logger.debug("管理员添加了教室"+RName+"");
             } catch (Exception ec) {

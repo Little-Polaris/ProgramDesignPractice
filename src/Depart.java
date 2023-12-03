@@ -4,73 +4,251 @@
 //教室信息实体类
 
 public class Depart {
+    //会议室属性
     private String RName;
     private String RNum;
-    private String RMember_count;
+    private String RMemberCount;
     private String RArea;
-    private String RUasge;
-    private String RPic_dir;
-    //private String use_time;
+    private String RPicDir;
+    private String RUsage;
+    private String RUserName;
+    private String RUserId;
+    private String RUserTel;
+    private String RUserEmail;
+    private String UsingDate;
+    private String StartingTime;
+    private String EndingTime;
+    private String RUserUsage;
+    private String Flag;
+    //管理员信息
+    private String AdName;
+    private String AdId;
+    private String AdGender;
+    private String AdPwd;
+    private String AdTel;
+    private String AdEmail;
+    //用户信息
+    private String UserName;
+    private String UserId;
+    private String UserGender;
+    private String UserPwd;
+    private String UserTel;
+    private String UserEmail;
 
     //构造方法
     public Depart (){}
-    public Depart(String RNum,String RMember_count,String RArea,String RPic_dir){
-        this.RNum=RNum;
-        this.RMember_count=RMember_count;
-        this.RArea=RArea;
-        this.RPic_dir=RPic_dir;
-        //this.use_time=use_time;
+    public Depart(String type, String RName, String RNum, String RMemberCount, String RArea, String RPicDir, String RUsage, String RUserName, String RUserId, String RUserTel, String RUserEmail, String UsingDate, String starting_time, String EndingTime, String RUserUsage, String Flag){
+        if(type.equals("room")) {
+            this.RName = RName;
+            this.RNum = RNum;
+            this.RMemberCount = RMemberCount;
+            this.RArea = RArea;
+            this.RPicDir = RPicDir;
+            this.RUsage = RUsage;
+            this.RUserName = RUserName;
+            this.RUserId = RUserId;
+            this.RUserTel = RUserTel;
+            this.RUserEmail = RUserEmail;
+            this.UsingDate = UsingDate;
+            this.StartingTime = starting_time;
+            this.EndingTime = EndingTime;
+            this.RUserUsage = RUserUsage;
+            this.Flag = Flag;
+        }
     }
-    public Depart (String RName,String RNum,String RMember_count,String RArea,String RUsage, String RPic_dir){
-        this.RName=RName;
-        this.RNum=RNum;
-        this.RMember_count=RMember_count;
-        this.RArea=RArea;
-        this.RUasge=RUsage;
-        this.RPic_dir=RPic_dir;
-        //this.use_time=use_time;
+
+    public Depart(String type, String Name_RName, String Id_RNum, String Gender_RMemberCount, String Pwd_RArea, String Tel_RPicDir, String Email_RUsage){
+        if(type.equals("room")){
+            this.RName = Name_RName;
+            this.RNum = Id_RNum;
+            this.RMemberCount = Gender_RMemberCount;
+            this.RArea = Pwd_RArea;
+            this.RPicDir = Tel_RPicDir;
+            this.RUsage = Email_RUsage;
+        } else if(type.equals("admin")){
+            this.AdName =Name_RName;
+            this.AdId =Id_RNum;
+            this.AdGender = Gender_RMemberCount;
+            this.AdPwd =Pwd_RArea;
+            this.AdTel =Tel_RPicDir;
+            this.AdEmail =Email_RUsage;
+        } else if (type.equals("user")) {
+            this.UserName =Name_RName;
+            this.UserId =Id_RNum;
+            this.UserGender = Gender_RMemberCount;
+            this.UserPwd =Pwd_RArea;
+            this.UserTel =Tel_RPicDir;
+            this.UserEmail =Email_RUsage;
+        }
     }
+    //获取属性
+    //获取会议室属性
     public String getRName() {
         return RName;
     }
-    public void setRName (String RName) {
-        this.RName = RName;
-    }
-
     public String getRNum() {
         return RNum;
+    }
+    public String getRMemberCount() {
+        return RMemberCount;
+    }
+    public String getRArea() {
+        return RArea;
+    }
+    public String getRPicDir() {
+        return RPicDir;
+    }
+    public String getRUsage() {
+        return RUsage;
+    }
+    public String getRUserName() {
+        return RUserName;
+    }
+    public String getRUserId() {
+        return RUserId;
+    }
+    public String getRUserTel() {
+        return RUserTel;
+    }
+    public String getRUserEmail() {
+        return RUserEmail;
+    }
+    public String getUsingDate() {
+        return UsingDate;
+    }
+    public String getStartingTime() {
+        return StartingTime;
+    }
+    public String getEndingTime() {
+        return EndingTime;
+    }
+    public String getRUserUsage() {
+        return RUserUsage;
+    }
+    public String getFlag() {
+        return Flag;
+    }
+    //获取管理员信息
+    public String getAdName() {
+        return AdName;
+    }
+    public String getAdId() {
+        return AdId;
+    }
+    public String getAdGender(){
+        return AdGender;
+    }
+    public String getAdPwd() {
+        return AdPwd;
+    }
+    public String getAdTel() {
+        return AdTel;
+    }
+    public String getAdEmail() {
+        return AdEmail;
+    }
+    //获取用户信息
+    public String getUserName() {
+        return UserName;
+    }
+    public String getUserId() {
+        return UserId;
+    }
+    public String getUserGender(){
+        return UserGender;
+    }
+    public String getUserPwd() {
+        return UserPwd;
+    }
+    public String getUserTel() {
+        return UserTel;
+    }
+    public String getUserEmail() {
+        return UserEmail;
+    }
+    //设置属性
+    //设置会议室属性
+    public void setRName(String RName) {
+        this.RName = RName;
     }
     public void setRNum(String RNum) {
         this.RNum = RNum;
     }
-
-    public String getRMember_count() {
-        return RMember_count;
-    }
-    public void setRMember_count(String RMember_count) {
-        this.RMember_count = RMember_count;
-    }
-
-    public String getRArea() {
-        return RArea;
+    public void setRMemberCount(String RMemberCount) {
+        this.RMemberCount = RMemberCount;
     }
     public void setRArea(String RArea) {
         this.RArea = RArea;
     }
-
-    public String getRUsage() {
-        return RUasge;
+    public void setRPicDir(String RPicDir) {
+        this.RPicDir = RPicDir;
     }
     public void setRUsage(String RUsage) {
-        this.RUasge = RUsage;
+        this.RUsage = RUsage;
     }
-    public String getRPic_dir() {
-        return RPic_dir;
+    public void setRUserName(String RUserName) {
+        this.RUserName = RUserName;
     }
-    public void setRPic_dir(String RPic_dir) {
-        this.RPic_dir = RPic_dir;
+    public void setRUserId(String RUserId) {
+        this.RUserId = RUserId;
     }
-
-    /*public String getUse_time(){return use_time;}
-    public void setUse_time(String use_time){this.use_time=use_time;}*/
+    public void setRUserTel(String RUserTel) {
+        this.RUserTel = RUserTel;
+    }
+    public void setRUserEmail(String RUserEmail) {
+        this.RUserEmail = RUserEmail;
+    }
+    public void setUsingDate(String UsingDate) {
+        this.UsingDate = UsingDate;
+    }
+    public void setStartingTime(String StartingTime) {
+        this.StartingTime = StartingTime;
+    }
+    public void setEndingTime(String EndingTime) {
+        this.EndingTime = EndingTime;
+    }
+    public void setRUserUsage(String RUserUsage) {
+        this.RUserUsage = RUserUsage;
+    }
+    public void setFlag(String Flag) {
+        this.Flag = Flag;
+    }
+    //设置管理员信息
+    public void setAdName(String AdName) {
+        this.AdName = AdName;
+    }
+    public void setAdId(String AdId) {
+        this.AdId = AdId;
+    }
+    public void setAdGender(String AdGender){
+        this.AdGender =AdGender;
+    }
+    public void setAdPwd(String AdPwd) {
+        this.AdPwd = AdPwd;
+    }
+    public void setAdTel(String AdTel) {
+        this.AdTel = AdTel;
+    }
+    public void setAdEmail(String AdEmail) {
+        this.AdEmail = AdEmail;
+    }
+    //设置用户信息
+    public void setUserName(String UserName) {
+        this.UserName = UserName;
+    }
+    public void setUserId(String UserId) {
+        this.UserId = UserId;
+    }
+    public void setUserGender(String UserGender){
+        this.UserGender =UserGender;
+    }
+    public void setUserPwd(String UserPwd) {
+        this.UserPwd = UserPwd;
+    }
+    public void setUserTel(String UserTel) {
+        this.UserTel = UserTel;
+    }
+    public void setUserEmail(String UserEmail) {
+        this.UserEmail = UserEmail;
+    }
 }

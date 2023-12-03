@@ -7,15 +7,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JPanel;
 
 public class subDepartFrame extends JFrame implements ActionListener {
     //该窗体具备五个标签，五个文本框，两个按钮
-    private JLabel unLbl, idLbl, telLbl,emailLbl,clrLbl,beginLbl,endLbl,durLbl,purLbl;
-    private JTextField unField,idField,telField,emailField,clrField,beginField,endField,durField;
+    private JLabel NameLbl, IdLbl, TelLbl, EmailLbl, UsingDate, StartingTimeLbl, EndingTimeLbl,durLbl, UserUsageLbl;
+    private JTextField NameField, IdField, TelField, EmailField, UsingDateField;
     private JButton okBtn, cancelBtn;
-    private JTextArea purField;
-    private JComboBox endCombox,durCombox;
+    private JTextArea UserUsageField;
+    private JComboBox StartingCombox, EndingCombox;
     private static final long serialVersionUID = 1L;
     public subDepartFrame() {
 
@@ -33,109 +32,116 @@ public class subDepartFrame extends JFrame implements ActionListener {
         setResizable(false);//设置窗体大小不可改变
         //setResizable(false);
 
-        unLbl = new JLabel("姓名:");
-        idLbl= new JLabel("学号:");
-        telLbl = new JLabel("联系方式:");
-        emailLbl = new JLabel("邮箱:");
-        clrLbl = new JLabel("教室位置:");
-        beginLbl = new JLabel("借用日期:");
-        endLbl = new JLabel("借用时间:");
-        durLbl = new JLabel("借用时长:");
-        purLbl = new JLabel("用途:");
-        endCombox=new JComboBox();
-        endCombox.addItem("8:00-9:30");
-        endCombox.addItem("10:00-11:30");
-        endCombox.addItem("12:00-13:00");
-        endCombox.addItem("13:30-15:00");
-        endCombox.addItem("15:30-17:00");
-        endCombox.addItem("17:30-21:00");
-        endCombox.addItem("21:30-22:30");
-        durCombox=new JComboBox();
-        durCombox.addItem("1小时");
-        durCombox.addItem("1.5小时");
+        NameLbl = new JLabel("姓名:");
+        IdLbl = new JLabel("账号:");
+        TelLbl = new JLabel("电话:");
+        EmailLbl = new JLabel("邮箱:");
+        UsingDate = new JLabel("使用日期:");
+        StartingTimeLbl = new JLabel("开始时间:");
+        EndingTimeLbl = new JLabel("结束时间:");
+        //durLbl = new JLabel("借用时长:");
+        UserUsageLbl = new JLabel("用途:");
+        StartingCombox =new JComboBox();
+        StartingCombox.addItem("8:00");
+        StartingCombox.addItem("9:00");
+        StartingCombox.addItem("10:00");
+        StartingCombox.addItem("11:00");
+        StartingCombox.addItem("12:00");
+        StartingCombox.addItem("13:00");
+        StartingCombox.addItem("14:00");
+        StartingCombox.addItem("15:00");
+        StartingCombox.addItem("16:00");
+        StartingCombox.addItem("17:00");
+        StartingCombox.addItem("18:00");
+        StartingCombox.addItem("19:00");
+        EndingCombox =new JComboBox();
+        EndingCombox.addItem("9:00");
+        EndingCombox.addItem("10:00");
+        EndingCombox.addItem("11:00");
+        EndingCombox.addItem("12:00");
+        EndingCombox.addItem("13:00");
+        EndingCombox.addItem("14:00");
+        EndingCombox.addItem("15:00");
+        EndingCombox.addItem("16:00");
+        EndingCombox.addItem("17:00");
+        EndingCombox.addItem("18:00");
+        EndingCombox.addItem("19:00");
+        EndingCombox.addItem("20:00");
 
-        unField = new JTextField(20);
-        idField = new JTextField(20);
-        telField = new JTextField(20);
-        emailField = new JTextField(20);
-        clrField = new JTextField(20);
-        beginField = new JTextField(20);
-        //endField = new JTextField(20);
-        //durField = new JTextField(20);
-        purField = new JTextArea(100,50);
-        purField.setBorder(BorderFactory.createLineBorder(Color.black));
+        NameField = new JTextField(20);
+        IdField = new JTextField(20);
+        TelField = new JTextField(20);
+        EmailField = new JTextField(20);
+        UsingDateField = new JTextField(20);
+
+        UserUsageField = new JTextArea(100,50);
+        UserUsageField.setBorder(BorderFactory.createLineBorder(Color.black));
 
         okBtn = new JButton("提交");
         cancelBtn = new JButton("取消");
 
         // 窗体位置设置
         setLayout(null);
-        unLbl.setBounds(60, 10, 90, 20);
-        unField.setBounds(140, 10, 140, 20);// 90=30+60
+        NameLbl.setBounds(60, 10, 90, 20);
+        NameField.setBounds(140, 10, 140, 20);// 90=30+60
 
-        idLbl.setBounds(60, 40, 90, 20); // 40=10+20+10
-        idField.setBounds(140, 40, 140, 20);
+        IdLbl.setBounds(60, 40, 90, 20); // 40=10+20+10
+        IdField.setBounds(140, 40, 140, 20);
 
-        telLbl.setBounds(60, 100, 90, 20);
-        telField.setBounds(140, 100, 140, 20);// 90=30+60
+        TelLbl.setBounds(60, 70, 90, 20);
+        TelField.setBounds(140, 70, 140, 20);// 90=30+60
 
-        emailLbl.setBounds(60, 70, 90, 20); // 40=10+20+10
-        emailField.setBounds(140, 70, 140, 20);
+        EmailLbl.setBounds(60, 100, 90, 20); // 40=10+20+10
+        EmailField.setBounds(140, 100, 140, 20);
 
-        clrLbl.setBounds(60, 130, 90, 20);
-        clrField.setBounds(140, 130, 140, 20);// 90=30+60
+        UsingDate.setBounds(60, 130, 90, 20);
+        UsingDateField.setBounds(140, 130, 140, 20);// 90=30+60
 
-        beginLbl.setBounds(60, 160, 90, 20);
-        beginField.setBounds(140, 160, 140, 20);// 90=30+60
+        StartingTimeLbl.setBounds(60, 160, 90, 20);
+        StartingCombox.setBounds(140, 160, 140, 20);// 90=30+60
 
-        endLbl.setBounds(60, 190, 90, 20);
-        endCombox.setBounds(140, 190, 140, 20);// 90=30+60
+        EndingTimeLbl.setBounds(60, 190, 90, 20);
+        EndingCombox.setBounds(140, 190, 140, 20);// 90=30+60
 
-        durLbl.setBounds(60, 220, 90, 20);
-        durCombox.setBounds(140, 220, 140, 20);// 90=30+60
-
-        purLbl.setBounds(60, 250, 90, 20);
-        purField.setBounds(140, 250, 140, 80);// 90=30+60
+        UserUsageLbl.setBounds(60, 220, 90, 20);
+        UserUsageField.setBounds(140, 220, 140, 110);// 90=30+60
 
         okBtn.setBounds(60, 350, 100, 20);
         cancelBtn.setBounds(180, 350, 100, 20);
         //将上述桌面添加进来
-        add(unLbl);
-        add(unField);
-        add(idLbl);
-        add(idField);
-        add(telLbl);
-        add(telField);
-        add(emailLbl);
-        add(emailField);
-        add(clrLbl);
-        add(clrField);
-        add(beginLbl);
-        add(beginField);
-        //定义日历控制面板类
-        //beginField.setBounds(100, 160, 140, 20);// 90=30+60
-        //add(beginField);
+        add(NameLbl);
+        add(NameField);
+        add(IdLbl);
+        add(IdField);
+        add(TelLbl);
+        add(TelField);
+        add(EmailLbl);
+        add(EmailField);
+        add(UsingDate);
+        add(UsingDateField);
+        add(StartingTimeLbl);
+        add(EndingTimeLbl);
+        add(StartingCombox);
+        add(EndingCombox);
+        add(UserUsageLbl);
+        add(UserUsageField);
+        add(okBtn);
+        add(cancelBtn);
 
-        CalendarPanel p = new CalendarPanel(beginField, "yyyy/MM/dd");
+        CalendarPanel p = new CalendarPanel(UsingDateField, "yyyy/MM/dd");
         p.initCalendarPanel();
 
         JLabel l = new JLabel("日历面板");
         p.add(l);
         getContentPane().add(p);
-        getContentPane().add(beginField);
+        getContentPane().add(UsingDateField);
         //setSize(500, 400);
         setBackground(Color.WHITE);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
 
-        add(endLbl);
-        add(endCombox);
-        add(durLbl);
-        add( durCombox);
-        add(purLbl);
-        add(purField);
-        add(okBtn);
-        add(cancelBtn);
+
+
 
         //注册事件监听
         okBtn.addActionListener(this);
@@ -149,15 +155,15 @@ public class subDepartFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == okBtn) {
-            String user_name = unField.getText();
-            String user_id = idField.getText();
-            String telNum = telField.getText();
-            String email = emailField.getText();
-            String clr_num = clrField.getText();
-            String date_begin = beginField.getText();
-            String date_end = (String) endCombox.getSelectedItem();
-            String duration =(String)durCombox.getSelectedItem();
-            String purpose = purField.getText();
+            String user_name = NameField.getText();
+            String user_id = IdField.getText();
+            String telNum = TelField.getText();
+            String email = EmailField.getText();
+            String clr_num = UsingDateField.getText();
+            String date_begin = UsingDateField.getText();
+            String date_end = (String) StartingCombox.getSelectedItem();
+            String duration =(String) EndingCombox.getSelectedItem();
+            String purpose = UserUsageField.getText();
             if (user_id == null || "".equals(user_id.trim())
                     || user_id == null || "".equals(user_id.trim())
                     || user_name == null || "".equals(user_name.trim())
