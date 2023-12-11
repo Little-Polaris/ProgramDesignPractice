@@ -1,47 +1,55 @@
-show databases ;
+DROP DATABASE HOME;
 
-create database Home;
+CREATE DATABASE HOME;
 
-use Home;
+CREATE TABLE `admin` (
+  `Name` varchar(30) DEFAULT NULL COMMENT '姓名',
+  `Id` char(11) NOT NULL COMMENT '账号',
+  `Gender` char(1) DEFAULT NULL COMMENT '性别',
+  `Pwd` varchar(50) DEFAULT NULL COMMENT '密码',
+  `Tel` varchar(20) DEFAULT NULL COMMENT '联系方式',
+  `Email` varchar(30) DEFAULT NULL COMMENT '邮箱',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='管理员';
 
-create table RegObject(
-    name varchar(30) comment '姓名',
-    id char(11) comment '账号' primary key ,
-    gender char(1) comment '性别',
-    pwd varchar(50) comment '密码',
-    tel varchar(20) comment '联系方式',
-    email varchar(30) comment '邮箱'
-)comment '注册对象';
+INSERT INTO admin values('admin', 'admin', '男', 'admin', '12345', '12345@xidian.edu.cn');
 
-create table Reged_user(
-    name varchar(30) comment '姓名',
-    id char(11) comment '账号' primary key ,
-    gender char(1) comment '性别',
-    pwd varchar(50) comment '密码',
-    tel varchar(20) comment '联系方式',
-    email varchar(30) comment '邮箱'
-)comment '已注册的普通用户';
-create table Administrator(
-    name varchar(30) comment '姓名',
-    id char(11) comment '账号' primary key ,
-    gender char(1) comment '性别',
-    pwd varchar(50) comment '密码',
-    tel varchar(20) comment '联系方式',
-    email varchar(30) comment '邮箱'
-)comment '管理员';
+CREATE TABLE `reservation` (
+  `resID` int NOT NULL AUTO_INCREMENT COMMENT '预约编号',
+  `userID` int DEFAULT NULL COMMENT '预约人账号',
+  `RNum` int DEFAULT NULL COMMENT '会议室编号',
+  `subTime` datetime DEFAULT NULL COMMENT '提交申请时间',
+  `checkTime` datetime DEFAULT NULL COMMENT '审核时间',
+  `checkStatus` int DEFAULT NULL COMMENT '预约状态：0预约成功、1审核中、2预约驳回、3取消预约、4已签退',
+  `note` varchar(50) DEFAULT NULL COMMENT '备注，预约用途或驳回理由',
+  PRIMARY KEY (`resID`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-create table RoomMessage(
-    user_name varchar(20) comment '用户名称',
-    user_id varchar(11) comment '用户账号',
-    telNum varchar(20) comment '用户联系方式',
-    email varchar(30) comment '用户邮箱',
-    room_num int primary key comment '房间编号',
-    using_date date comment '会议日期',
-    starting_time time comment '会议开始时间',
-    ending_time time comment '会议结束时间',
-    purpose varchar(50) comment '使用会议厅目的'
-)comment '会议厅信息';
+CREATE TABLE `room` (
+  `RName` varchar(30) DEFAULT NULL COMMENT '名称',
+  `RNum` int NOT NULL COMMENT '房号',
+  `RMemberCount` int DEFAULT NULL COMMENT '人数',
+  `RArea` int DEFAULT NULL COMMENT '面积',
+  `RPicDir` varchar(100) DEFAULT NULL COMMENT '图片路径',
+  `RUsage` varchar(100) DEFAULT NULL COMMENT '用途',
+  `RUserName` varchar(20) DEFAULT NULL COMMENT '用户名称',
+  `RUserId` varchar(11) DEFAULT NULL COMMENT '用户账号',
+  `RUserTel` varchar(20) DEFAULT NULL COMMENT '用户联系方式',
+  `RUserEmail` varchar(30) DEFAULT NULL COMMENT '用户邮箱',
+  `UseDate` date DEFAULT NULL COMMENT '会议日期',
+  `StartTime` time DEFAULT NULL COMMENT '会议开始时间',
+  `EndTime` time DEFAULT NULL COMMENT '会议结束时间',
+  `RUserUsage` varchar(200) DEFAULT NULL COMMENT '用户用途',
+  `Status` char(1) DEFAULT NULL COMMENT '是否占用（占用为1）',
+  PRIMARY KEY (`RNum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='会议厅信息';
 
--- 密码均为123456
-insert into administrator values ('张三',123456,'男','-1ef523c6b645a65441a91fa80df077c2',123456,123456);
-insert into reged_user values ('张三',123456,'男','-1ef523c6b645a65441a91fa80df077c2',123456,123456);
+CREATE TABLE `user` (
+  `Name` varchar(30) DEFAULT NULL COMMENT '姓名',
+  `Id` varchar(11) NOT NULL COMMENT '账号',
+  `Gender` char(1) DEFAULT NULL COMMENT '性别',
+  `Pwd` varchar(50) DEFAULT NULL COMMENT '密码',
+  `Tel` varchar(20) DEFAULT NULL COMMENT '联系方式',
+  `Email` varchar(30) DEFAULT NULL COMMENT '邮箱',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='普通用户'

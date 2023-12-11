@@ -1,4 +1,5 @@
-//数据库的连接
+//Modified by MrQi on 2023/11/4.
+
 import java.sql.*;
 
 import java.sql.Connection;

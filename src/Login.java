@@ -1,3 +1,5 @@
+//Modified by MrQi on 2023/12/9.
+
 import javax.management.Query;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,8 +10,8 @@ public class Login{
     //用户登录处理方法
     public boolean loginCheck(String account ,String password,String role)throws Exception{
         String sql="";
-        if("管理员".equals(role))sql="select * from administrator where id=? and pwd=?";
-        else if("普通用户".equals(role))sql="select * from reged_user where id=? and pwd=?";
+        if("管理员".equals(role))sql="select * from admin where id=? and pwd=?";
+        else if("普通用户".equals(role))sql="select * from user where id=? and pwd=?";
         else sql="select * from T where Tno=?and TPwd?";
         return query(sql,account,password);
     }
@@ -20,7 +22,9 @@ public class Login{
         pstmt.setString(1,param1);
         pstmt.setString(2,param2);
         ResultSet rs =pstmt.executeQuery();
-        if(rs.next())valid =true;
+        if(rs.next()) {
+            valid = true;
+        }
         dbUtils.close(rs,pstmt,conn);
         return valid;
     }

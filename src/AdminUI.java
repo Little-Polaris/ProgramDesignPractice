@@ -1,153 +1,132 @@
-/**
- * Created by xsw on 2017/5/26.
- */
-//管理员界面
+//Modified by MrQi on 2023/12/9.
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.List;
+import java.time.LocalDateTime;
 
 public class AdminUI extends JFrame implements ActionListener {
     private JMenuBar menuBar;
-    //菜单：会议室信息管理、用户信息管理、待办事项、系统管理
-    private JMenu classroomMenu,userMenu,waitMenu,exitMenu;
-    //菜单项：添加信息、删除信息、修改信息
-    private JMenuItem addItem,modifyItem,rwItem,uwItem;
+    private JMenu roomMenu, userMenu, reservationMenu ;
+    private JMenuItem addRoomItem, modifyRoomItem, queryRoomItem, deleteRoomItem, addUserItem, addAdminItem, modifyUserItem, modifyAdminItem, deleteUserItem , queryReservationItem;
     private JTable table;
-    private JButton modifyBtn,refBtn;
+    private JButton passBtn, rejectBtn;
     private JLabel RUserNameLbl, RUserIdLbl, RUserTelLbl, RUserEmailLbl,roomLbl, UsingDateLbl, StartingTimeLbl, EndingTimeLbl,purLbl;
+    private JLabel checkLbl, queryLbl;
+    private JTextField queryField;
+    private JButton queryBtn;
+    private JRadioButton RNumRadio, RNameRadio, RUserIDRadio, RUserNameRadio;
+    ButtonGroup group;
     private JTextField RUserNameField, RUserIdField, RUserTelField, RUserEmailField,roomField, UsingDateField, StartingTimeField, EndingTimeField;
     private JTextArea UsageField;
     private JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
-    DepartDao departDao;
-    List<Depart> DepartList;
-    int num;
+    Admin adminData;
     Object[][]data;
-    AdminUI.TableListener a;
+    TableListener tableListener;
 
     public AdminUI(String account){
-        setTitle("会议室预约系统"+"当前管理员为："+account);//设置窗体标题
-        setSize(900,450);
-        WindowUtils.displayOnDesktopCenter(this);//窗体居中的方法
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//正常关闭窗体
-        //creatMenu();//添加菜单
-        menuBar = new JMenuBar();//创建菜单栏
-        //会议室信息管理菜单及菜单项的创建
-        classroomMenu = new JMenu("会议室信息管理");
-        addItem = new JMenuItem("添加会议室");
-        addItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new AddDepartFrame();
-            }
-        });
-        //delItem = new JMenuItem("删除会议室");
-        modifyItem = new JMenuItem("修改信息");
-        modifyItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {new ad_modify();}
-        });
-        classroomMenu.add(addItem);
-        classroomMenu.addSeparator();
-        classroomMenu.add(modifyItem);
-
-        //用户信息管理菜单及菜单项的创建
-        userMenu = new JMenu("用户信息管理");
-        addItem = new JMenuItem("添加用户");
-        addItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new adduserDepartFrame();
-            }
-        });
-        //delItem = new JMenuItem("删除用户");
-        modifyItem = new JMenuItem("修改信息");
-        modifyItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new modify_user();
-            }
-        });
-
-        userMenu.add(addItem);
-        userMenu.addSeparator();
-        userMenu.add(modifyItem);
-        //待办事项菜单
-        waitMenu = new JMenu("待办事项");
-        rwItem = new JMenuItem("待办预定");
-        uwItem = new JMenuItem("待办注册");
-        uwItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new con_user();
-            }
-        });
-        waitMenu.add(rwItem);
-        userMenu.addSeparator();//设置分割线
-        waitMenu.add(uwItem);
-        //系统管理
-        //exitMenu=new JMenu("退出");
-
-        menuBar.add(classroomMenu);
-        menuBar.add(userMenu);
-        menuBar.add(waitMenu);
-        //menuBar.add(exitMenu);
-        this.setJMenuBar(menuBar);
-        modifyBtn = new JButton("通过");
-        refBtn = new JButton("驳回");
-        setLayout(null);
-        modifyBtn.setBounds(160, 300, 100, 20);
-        refBtn.setBounds(360, 300, 100, 20);
-        add(modifyBtn);
-        add(refBtn);
-
-        String columnsName[]={"占用情况","会议室编号","会议室名称","容量","面积", "用途", "图片"};
-        try{
-            departDao =new DepartDao();
-            //调用departBao对象的findAll方法返回会议室信息列表
-            DepartList = departDao.queryAll("room");
-            //将list集合解析为JTable显示的数据模型
-            num = DepartList.size();
-            data=new Object[num][7];
-            JButton [] pic_button = new JButton[num];
-            int index=0;
-            for(Depart depart: DepartList){
-                data[index][0]=depart.getFlag();
-                data[index][1]=depart.getRNum();
-                data[index][2]=depart.getRName();
-                data[index][3]=depart.getRMemberCount();
-                data[index][4]=depart.getRArea();
-                data[index][5]=depart.getRUsage();
-                pic_button[index] = new JButton("查看");
-                pic_button[index].setBounds(540, 72 + index * 15, 70, 15);
-//                pic_button[index].addActionListener(new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//                        new pic();
-//                    }
-//                });
-                //data[index][5] = pic_button[index];
-                add(pic_button[index]);
-
-                //data[index][5]=subdepart.getRPic_dir();
-//                data[index][6]=subdepart.getstarting_time();
-//                data[index][7]=subdepart.getending_time();
-//                data[index][8]=subdepart.getRUsage();
-//                data[index][9]=subdepart.getflag();
-                index++;
-            }
-            table.setModel(new DefaultTableModel(data,columnsName));
-        } catch (Exception ec){
-            //JOptionPane.showMessageDialog(null,"查询时出现异常。异常原因为："+ec.getMessage());
-            ec.printStackTrace();
+        Dao dao = new Dao();
+        List<Admin> adminList;
+        try {
+            adminList = dao.query(new Admin(), "ID", account);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        table = new JTable(data,columnsName);
-        TableListener a =new TableListener();
-        table.addMouseListener(a);
-        jScrollPane2.setBounds(20, 50, 600, 200);
-        jScrollPane2.setViewportView(table);
-        this.add(jScrollPane2);
+        adminData= adminList.getFirst();
+        setTitle("会议室预约系统"+"当前管理员为："+account);
+        setSize(900,450);
+        WindowUtils.displayOnDesktopCenter(this);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+
+        checkLbl = new JLabel("待审核列表");
+        checkLbl.setBounds(20, 20, 100, 20);
+        add(checkLbl);
+
+        menuBar = new JMenuBar();
+        roomMenu = new JMenu("会议室信息");
+        addRoomItem = new JMenuItem("添加会议室");
+        modifyRoomItem = new JMenuItem("修改会议室信息");
+        queryRoomItem = new JMenuItem("查询所有会议室信息");
+        deleteRoomItem = new JMenuItem("删除会议室");
+        roomMenu.add(addRoomItem);
+        roomMenu.addSeparator();
+        roomMenu.add(modifyRoomItem);
+        roomMenu.addSeparator();
+        roomMenu.add(queryRoomItem);
+        roomMenu.addSeparator();
+        roomMenu.add(deleteRoomItem);
+        addRoomItem.addActionListener(this);
+        modifyRoomItem.addActionListener(this);
+        queryRoomItem.addActionListener(this);
+        deleteRoomItem.addActionListener(this);
+
+        userMenu = new JMenu("用户信息");
+        addUserItem = new JMenuItem("添加用户");
+        addAdminItem = new JMenuItem("添加管理员");
+        modifyUserItem = new JMenuItem("修改用户信息");
+        modifyAdminItem = new JMenuItem("修改管理员信息");
+        deleteUserItem = new JMenuItem("删除用户");
+        userMenu.add(addUserItem);
+        userMenu.addSeparator();
+        userMenu.add(modifyUserItem);
+        userMenu.addSeparator();
+        userMenu.add(addAdminItem);
+        userMenu.addSeparator();
+        userMenu.add(modifyAdminItem);
+        userMenu.addSeparator();
+        userMenu.add(deleteUserItem);
+        addUserItem.addActionListener(this);
+        modifyUserItem.addActionListener(this);
+        addAdminItem.addActionListener(this);
+        modifyAdminItem.addActionListener(this);
+        deleteUserItem.addActionListener(this);
+
+        reservationMenu = new JMenu("预约信息");
+        queryReservationItem = new JMenuItem("查询预约信息");
+        reservationMenu.add(queryReservationItem);
+        queryReservationItem.addActionListener(this);
+
+        queryLbl = new JLabel("查询:");
+        queryField = new JTextField(100);
+        queryBtn = new JButton("查询");
+        queryLbl.setBounds(20, 50, 50, 20);
+        queryField.setBounds(80, 50, 100, 20);
+        queryBtn.setBounds(200, 50, 60, 20);
+        queryBtn.addActionListener(this);
+        this.add(queryLbl);
+        this.add(queryField);
+        this.add(queryBtn);
+        RNumRadio = new JRadioButton("按会议室编号查询");
+        RNumRadio.setBounds(20, 80, 140, 20);
+        RNameRadio = new JRadioButton("按会议室名称查询");
+        RNameRadio.setBounds(160, 80, 140, 20);
+        RUserIDRadio = new JRadioButton("按申请人ID查询");
+        RUserIDRadio.setBounds(300, 80, 140, 20);
+        RUserNameRadio = new JRadioButton("按申请人姓名查询");
+        RUserNameRadio.setBounds(440, 80, 140, 20);
+        group = new ButtonGroup();
+        group.add(RNumRadio);
+        group.add(RNameRadio);
+        group.add(RUserIDRadio);
+        group.add(RUserNameRadio);
+        this.add(RNumRadio);
+        this.add(RNameRadio);
+        this.add(RUserIDRadio);
+        this.add(RUserNameRadio);
+
+
+        menuBar.add(roomMenu);
+        menuBar.add(userMenu);
+        menuBar.add(reservationMenu);
+        this.setJMenuBar(menuBar);
+        passBtn = new JButton("通过");
+        rejectBtn = new JButton("驳回");
+        passBtn.setBounds(160, 350, 100, 20);
+        rejectBtn.setBounds(360, 350, 100, 20);
+        add(passBtn);
+        add(rejectBtn);
 
         RUserNameLbl = new JLabel("姓名:");
         RUserIdLbl = new JLabel("账号:");
@@ -214,29 +193,125 @@ public class AdminUI extends JFrame implements ActionListener {
         add(purLbl);
         add(UsageField);
 
-        modifyBtn.addActionListener(this);
+        passBtn.addActionListener(this);
+        rejectBtn.addActionListener(this);
+
+        freshTable();
         setVisible(true);//显示窗体
     }
     public static void main (String[] args){
         new AdminUI("admin");
     }
 
+    public void freshTable(){
+        String[] columnsName = {"会议室编号", "会议室名称", "申请人ID", "申请人姓名", "备注"};
+        List<Room> roomList = null;
+        Dao dao = new Dao();
+        try {
+            roomList = dao.query(new Room());
+        } catch (Exception ec) {
+            ec.printStackTrace();
+        }
+        for (int i = 0; i < roomList.size(); i++) {
+            if (roomList.get(i).getStatus().equals("0")) {
+                roomList.remove(i);
+                i--;
+            } else {
+                List<Reservation> reservationList = null;
+                try {
+                    reservationList = dao.query(new Reservation(), "RNum", roomList.get(i).getRNum());
+                } catch (Exception ec) {
+                    ec.printStackTrace();
+                }
+                Reservation reservation = reservationList.getLast();
+                if (!reservation.getCheckStatus().equals("1")) {
+                    roomList.remove(i);
+                    i--;
+                }
+            }
+        }
+        int num = roomList.size();
+        data = new Object[num][5];
+        int index = 0;
+        for (Room room : roomList) {
+            data[index][0] = room.getRNum();
+            data[index][1] = room.getRName();
+            data[index][2] = room.getRUserId();
+            data[index][3] = room.getRUserName();
+            data[index][4] = room.getRUserUsage();
+            index++;
+        }
+        table = new JTable(data, columnsName);
+        tableListener = new TableListener();
+        table.addMouseListener(tableListener);
+        jScrollPane2.setBounds(20, 110, 600, 200);
+        jScrollPane2.setViewportView(table);
+        this.add(jScrollPane2);
+    }
+
+    public void freshTable(String key, String value){
+        String[] columnsName = {"会议室编号", "会议室名称", "申请人ID", "申请人姓名", "备注"};
+        List<Room> roomList = null;
+        Dao dao = new Dao();
+        try {
+            roomList = dao.query(new Room(), key, value);
+        } catch (Exception ec) {
+            ec.printStackTrace();
+        }
+        for (int i = 0; i < roomList.size(); i++) {
+            if (roomList.get(i).getStatus().equals("0")) {
+                roomList.remove(i);
+                i--;
+            } else {
+                List<Reservation> reservationList = null;
+                try {
+                    reservationList = dao.query(new Reservation(), "RNum", roomList.get(i).getRNum());
+                } catch (Exception ec) {
+                    ec.printStackTrace();
+                }
+                Reservation reservation = reservationList.getLast();
+                if (!reservation.getCheckStatus().equals("1")) {
+                    roomList.remove(i);
+                    i--;
+                }
+            }
+        }
+        int num = roomList.size();
+        data = new Object[num][5];
+        int index = 0;
+        for (Room room : roomList) {
+            data[index][0] = room.getRNum();
+            data[index][1] = room.getRName();
+            data[index][2] = room.getRUserId();
+            data[index][3] = room.getRUserName();
+            data[index][4] = room.getRUserUsage();
+            index++;
+        }
+        table = new JTable(data, columnsName);
+        tableListener = new TableListener();
+        table.addMouseListener(tableListener);
+        jScrollPane2.setBounds(20, 110, 600, 200);
+        jScrollPane2.setViewportView(table);
+        this.add(jScrollPane2);
+    }
+
     class TableListener extends MouseAdapter {
         String RNum, RUserName, RUserId, RUserTel, RUserEmail , UsingDate, StartingTime, EndingTime, RUserUsage;
         public void mouseClicked(final MouseEvent e) {
             int selRow = table.getSelectedRow();
-            RNum = table.getValueAt(selRow, 1).toString().trim();
-            departDao = new DepartDao();
+            RNum = table.getValueAt(selRow, 0).toString().trim();
+            Dao dao = new Dao();
             try {
-                Depart depart = departDao.query("room", RNum);
-                RUserName = depart.getRUserName();
-                RUserId = depart.getRUserId();
-                RUserTel = depart.getRUserTel();
-                RUserEmail = depart.getRUserEmail();
-                UsingDate = depart.getUsingDate();
-                StartingTime = depart.getStartingTime();
-                EndingTime = depart.getEndingTime();
-                RUserUsage = depart.getRUserUsage();
+                List<Room> roomList = dao.query(new Room(), "RNum", RNum);
+                Room room = roomList.get(0);
+                RUserName = room.getRUserName();
+                RUserId = room.getRUserId();
+                RUserTel = room.getRUserTel();
+                RUserEmail = room.getRUserEmail();
+                UsingDate = room.getUseDate();
+                StartingTime = room.getStartTime();
+                EndingTime = room.getEndTime();
+                RUserUsage = room.getRUserUsage();
                 RUserNameField.setText(RUserName);
                 RUserIdField.setText(RUserId);
                 RUserTelField.setText(RUserTel);
@@ -249,52 +324,101 @@ public class AdminUI extends JFrame implements ActionListener {
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
-
         }
     }
 
     public void actionPerformed(ActionEvent e){
-        String user_name, user_id, telNum, email, room_num,date,starting,ending,RUsage;
-        if (e.getSource() == modifyBtn) {
-            user_name = RUserNameField.getText();
-            user_id = RUserIdField.getText();
-            telNum = RUserTelField.getText();
-            email = RUserEmailField.getText();
-            room_num = roomField.getText();
-            date = UsingDateField.getText();
-            starting = StartingTimeField.getText();
-            ending = EndingTimeField.getText();
-            RUsage = UsageField.getText();
-            
-            System.out.println(user_name);
-            if (user_id == null || "".equals(user_id.trim())
-                    || user_id == null || "".equals(user_id.trim())
-                    || user_name == null || "".equals(user_name.trim())
-                    || telNum == null || "".equals(telNum.trim())
-                    || email == null || "".equals(email.trim())
-                    || room_num == null || "".equals(room_num.trim())
-                    || date == null || "".equals(date.trim())
-                    || starting == null || "".equals(starting.trim())
-                    || ending == null || "".equals(ending.trim())
-                    || RUsage == null || "".equals(RUsage.trim()))
-            {
-                JOptionPane.showMessageDialog(null, "信息填写不完整，请重新检查！");
+        if(e.getSource() == passBtn){
+            if(table.getSelectedRow() == -1){
                 return;
             }
-            //调用DepartDao业务逻辑处理类来完成增加的操作
-            subDepartDao subdepartDao = new subDepartDao();
-            subDepart d = new subDepart(user_name, user_id, telNum, email, room_num,date,starting,ending,RUsage);
+            Dao dao = new Dao();
             try {
-                subdepartDao.con_save(d);
-                JOptionPane.showMessageDialog(null, "审核通过！");
-                log.logger.debug("管理员审核了信息");
-            } catch (Exception ec) {
-                JOptionPane.showMessageDialog(null, "保存时出现异常，异常原因为:" + ec.getMessage());
-                ec.printStackTrace();
+                List<Reservation> reservationList = dao.query(new Reservation(), "RNum", tableListener.RNum);
+                Reservation reservation = reservationList.getLast();
+                reservation.setCheckTime(LocalDateTime.now().toString());
+                reservation.setCheckStatus("0");
+                reservation.setNote(null);
+                dao.update(reservation, reservation);
+                JOptionPane.showMessageDialog(null, "审核通过");
+                freshTable();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
             }
-        }
-        else {
-            this.dispose();
+        } else if(e.getSource() == rejectBtn) {
+            if(table.getSelectedRow() == -1){
+                return;
+            }
+            Dao dao = new Dao();
+            try {
+                String note = JOptionPane.showInputDialog("请输入驳回理由");
+                List<Reservation> reservationList = dao.query(new Reservation(), "RNum", tableListener.RNum);
+                List<Room> roomList = dao.query(new Room(), "RNum", tableListener.RNum);
+                Reservation reservation = reservationList.getLast();
+                Room room = roomList.getFirst();
+                reservation.setCheckTime(LocalDateTime.now().toString());
+                reservation.setCheckStatus("2");
+                reservation.setNote(note);
+                dao.update(reservation, reservation);
+                room.setRUserName(null);
+                room.setRUserId(null);
+                room.setRUserTel(null);
+                room.setRUserEmail(null);
+                room.setUseDate(null);
+                room.setStartTime(null);
+                room.setEndTime(null);
+                room.setRUserUsage(null);
+                room.setStatus("0");
+                dao.update(room, room);
+                freshTable();
+                RUserEmailField.setText(null);
+                RUserTelField.setText(null);
+                RUserIdField.setText(null);
+                RUserNameField.setText(null);
+                roomField.setText(null);
+                UsingDateField.setText(null);
+                StartingTimeField.setText(null);
+                EndingTimeField.setText(null);
+                UsageField.setText(null);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+        } else if(e.getSource() == addRoomItem){
+            new AddRoomFrame();
+        } else if(e.getSource() == modifyRoomItem){
+            new ModifyRoomFrame();
+        } else if(e.getSource() == queryRoomItem){
+            new QueryRoomFrame();
+        } else if(e.getSource() == addUserItem){
+            new AddUserFrame();
+        } else if(e.getSource() == modifyUserItem){
+            new ModifyUserInfoFrame();
+        } else if(e.getSource() == addAdminItem){
+            new AddAdminFrame();
+        } else if(e.getSource() == modifyAdminItem){
+            new ModifyAdminInfoFrame(adminData, this);
+        }else if(e.getSource() == deleteUserItem){
+            new DeleteUserFrame();
+        } else if(e.getSource() == deleteRoomItem){
+            new DeleteRoomFrame();
+        } else if(e.getSource() == queryReservationItem){
+            new QueryReservationFrame();
+        } else if(e.getSource() == queryBtn){
+            if(RNumRadio.isSelected()){
+                freshTable("RNum", queryField.getText());
+            } else if(RNameRadio.isSelected()){
+                freshTable("RName", queryField.getText());
+            } else if(RUserIDRadio.isSelected()){
+                freshTable("RUserId", queryField.getText());
+            } else if(RUserNameRadio.isSelected()){
+                freshTable("RUserName", queryField.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "请选择查询方式");
+            }
         }
     }
 }
